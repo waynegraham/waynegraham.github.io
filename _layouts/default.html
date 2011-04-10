@@ -15,7 +15,8 @@
     <div id="container" class="container_12">
       <header class="grid_12">
       <h1>Header stuff</h1>
-      <nav>
+      <p>sub header</p>
+      <nav id="globalNav" class="grid_12">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/posts">Posts</a></li>
@@ -24,12 +25,23 @@
         </ul>
       </nav>
       </header>
-      <div id="main" role="main">
-        {{ content }}
+      <div id="main" role="main" class="container_12">
+        <div class="grid_9 alpha">
+          {{ content }}
+        </div>
+        <aside class="grid_3 omega">
+          <h3>Other Stuff</h3>
+          <ul>
+            <li>Categories</li>
+            <li>Archive</li>
+          </ul>
+        </aside>
       </div>
 
       <footer>
-
+        <p>
+          &copy; {{ 'now' | date: "%Y" }} Wayne Graham
+        </p>
       </footer>
     </div><!-- #container -->
 
