@@ -1,3 +1,6 @@
+.DS_Store
+log/
+_cache/
 _site
 _inclues/ga-account-number.txt
-
+.sass-cache
