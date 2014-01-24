@@ -1,0 +1,58 @@
+@import 'reset';
+@import 'mixins';
+
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+/*fonts*/
+$sansFamily: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+$headingFamily: 'Bebas Neue', Helvetica, Arial, sans-serif;
+
+/*colors*/
+$white: #fff;
+$black: #111;
+$darkGray: #222;
+$gray: #444;
+$lightGray: #ccc;
+$blue: #6ec5ff;
+$indigo: #5ea5ff;
+
+body {
+  font-family: $sansFamily;
+  margin: 0;
+  color: $gray;
+  font-size: 1.2em;
+  min-width: 275px;
+}
+
+a {
+  color: $indigo;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $darkGray;
+  font-family: $headingFamily;
+  text-transform: uppercase;
+  font-weight: normal;
+  line-height: 0.8em;
+  margin: 0.4em 0;
+
+  a {
+    color: inherit;
+
+    &:hover { text-decoration: none; }
+  }
+}
+
+h1 { font-size: 4em; }
+h2 { font-size: 3.5em; }
+h3 { font-size: 3em; }
+h4 { font-size: 2.5em; }
+h5 { font-size: 2em; }
+
+h1.hero {
+  font-size: 4.5em;
+  margin: 0.5em 0 0.1em;
+}
