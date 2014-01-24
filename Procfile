@@ -1,2 +1,2 @@
-web: bundle exec jekyll serve --watch --baseurl ''
+web: bundle exec jekyll serve --watch
 compass: bundle exec compass watch
