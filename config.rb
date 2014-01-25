@@ -1,3 +1,6 @@
+require 'bourbon-compass'
+require 'neat-compass'
+
 http_path = "/"
 css_dir = "css"
 sass_dir = "_sass"
