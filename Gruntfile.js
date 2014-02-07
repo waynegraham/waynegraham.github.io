@@ -1,72 +1,41 @@
-"use strict";
-
+'use strict';
 module.exports = function(grunt) {
 
-  // load all grunt tasks
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
   grunt.initConfig({
-
-    // watch for changes and trigger compass, jshint, uglify and livereload
-    watch: {
-      options: {
-        livereload: true
-      },
-      compass: {
-        files: ['_sass/**/*.{scss,sass}'],
-        tasks: ['compass']
-      },
-      js: {
-        files: '<%= jshint.all %>',
-        tasks: ['jshint', 'uglify']
-      },
-      livereload: {
-        files: ['*.html', '*.md', 'assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}']
-      }
-    },
-
-    // compass and scss
-    compass: {
-      dist: {
-        options: {
-          config: 'config.rb',
-          force: true
-        }
-      }
-    },
-
-    // javascript linting with jshint
     jshint: {
       options: {
-        jshintrc: '.jshintrc',
-        "force": true
+        jshintrc: '.jshintrc'
       },
       all: [
         'Gruntfile.js',
-        'assets/js/source/**/*.js'
+        'assets/js/*.js',
+        'assets/js/plugins/*.js',
+        '!assets/js/scripts.min.js'
       ]
     },
-
-    // uglify to concat, minify, and make source maps
-    uglify: {
+    recess: {
       dist: {
         options: {
-          sourceMap: 'assets/js/map/source-map.js'
+          compile: true,
+          compress: true
         },
         files: {
-          'assets/js/plugins.min.js': [
-            'assets/js/source/plugins.js',
-            'assets/js/vendor/**/*.js',
-            '!assets/js/vendor/modernizr*.js'
-          ],
-          'assets/js/main.min.js': [
-            'assets/js/source/main.js'
+          'assets/css/main.min.css': [
+            'assets/less/main.less'
           ]
         }
       }
     },
-
-    // image optimization
+    uglify: {
+      dist: {
+        files: {
+          'assets/js/scripts.min.js': [
+            'assets/js/plugins/*.js',
+            'assets/js/_*.js'
+          ]
+        }
+      }
+    },
     imagemin: {
       dist: {
         options: {
@@ -75,16 +44,64 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'assets/images/',
-          src: '**/*',
-          dest: 'assets/images/'
+          cwd: 'images/',
+          src: '{,*/}*.{png,jpg,jpeg}',
+          dest: 'images/'
         }]
       }
+    },
+    svgmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'images/',
+          src: '{,*/}*.svg',
+          dest: 'images/'
+        }]
+      }
+    },
+    watch: {
+      less: {
+        files: [
+          'assets/less/*.less',
+          'assets/less/bootstrap/*.less'
+        ],
+        tasks: ['recess']
+      },
+      js: {
+        files: [
+          '<%= jshint.all %>'
+        ],
+        tasks: ['jshint','uglify']
+      }
+    },
+    clean: {
+      dist: [
+        'assets/css/main.min.css',
+        'assets/js/scripts.min.js'
+      ]
     }
-
   });
 
-  // register task
-  grunt.registerTask('default', ['watch']);
+  // Load tasks
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-recess');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-svgmin');
+
+  // Register tasks
+  grunt.registerTask('default', [
+    'clean',
+    'recess',
+    'uglify',
+    'imagemin',
+    'svgmin'
+  ]);
+  grunt.registerTask('dev', [
+    'watch'
+  ]);
 
 };

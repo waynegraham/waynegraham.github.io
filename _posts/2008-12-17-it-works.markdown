@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: It Works!
+author: Wayne
+author_login: admin
+author_email: wayne@liquidfoot.com
+author_url: http://liquidfoot.com
+wordpress_id: 143
+wordpress_url: http://www.liquidfoot.com/?p=143
+date: 2008-12-17 20:39:13.000000000 -05:00
+categories:
+- General
+- Computing
+tags: []
+comments: []
+---
+With my departure from W&amp;M we talked about the deployment of the second Sun X4500 for the library. My original plan was to wait until the 10/08 system came out (which had the SAMBA stuff in the kernel) and then deploy the hardware with ZFS and Z-RAID. However, no one else really has any experience with either administering SAMBA or Solaris. I had read that Windows could be installed on these servers. It's a bit of a sacrilege, but it should help out until they find a replacement.
+
+The Sun Installation Assistant CD really took all the work out of setting the thing up...it includes all the required drivers for the hard drives and NIC. Took a while since I was redirecting the KVM through the ILOM and sharing my ROM drive. Everything went very well, but I did notice that the OS I installed (Windows 2003 R2 Standard) has a limit of 4GB. I couldn't for the life of me figure out what happend to the other 12GB. Been in \*nix too long and forgot that Microsoft puts limits on the amount of RAM a server can support. I just need to reinstall with Enterprise edition. Not a huge deal, but it's one of those things I wish I would have known/remembered.
+
+I did set up a "test" share (it's primarily to give our media center access to a lot of storage), but I ran into an issue(s) with OS X. Seems the mount would take, but you can't see any of the files. You can move files to the server, but they don't show up.
+
+I think the bandwidth should be ok coming from the media center. There's full gigE from the desktop to the server and I ganged the NICs.
+
+I wished I could have used the Z-RAID, and I'm not sure that the Windows Dynamic RAID-5 will do quite the same job, but it's a step forward in getting some storage (and not attached hard drives) for media production.
