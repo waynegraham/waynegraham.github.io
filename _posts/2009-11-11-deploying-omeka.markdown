@@ -21,6 +21,11 @@ date: 2009-11-11 17:10:40.000000000 -05:00
 categories: []
 tags: []
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 At work, we've been doing a lot of development using the Omeka framework. We've implemented plugins to enable the software to interact with our Fedora repository, work with geo-rectified images, build in a search interface with Solr, and another one (Adam's not quite ready to announce this one yet). However, as good as the project is, one thing I've noticed is that the ways to deploy the software are a bit heavy on the user knowing what they're doing. They've done a good job of guiding users through the setup after all the pieces are in place, but I'm a big fan of having automated ways of deploying software.
 

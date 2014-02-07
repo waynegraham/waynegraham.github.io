@@ -14,6 +14,12 @@ categories:
 - General
 tags: []
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
+
 ---
 I've been running IE 7 beta 2 in standalone mode (so it wouldn't override my real IE installation) for a while. However, when beta 3 came there were some issues going to beta 3 because it needed to write some values to the registry and didn't assume your default settings.
 

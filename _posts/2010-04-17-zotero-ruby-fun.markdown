@@ -18,6 +18,11 @@ tags:
 - gem
 - plugins
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 Last week I was on a panel at the Organization of American Historian's Annual Meeting up in DC with some folks from <a href="http://chnm.gmu.edu/">CHNM</a>. One of the really cool thing that I've noticed is every time I'm around those folks, I get ideas...which can be dangerous. I had been meaning to poke at the Zotero API for a while and after talking with <a href="http://twitter.com/tjowens/">@tjowens</a>, <a href="http://twitter.com/joegilbert">@joegilbert</a>, and <a href="http://twitter.com/clioweb">@clioweb</a> over some falafels, I started putting some ideas together on the train home.
 

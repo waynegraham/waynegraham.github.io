@@ -15,6 +15,12 @@ categories:
 tags:
 - Linux
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
+
 ---
 I ran across this on Digg under the title <a href="http://martin.ankerl.org/2006/08/16/how-to-make-firefox-40-percent-faster/">How to Make Firefox Over 40% Faster</a>. While the improvement actually has nothing to do with Firefox, it does cover how to improve the CPU scaling settings.
 

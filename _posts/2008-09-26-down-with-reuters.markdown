@@ -15,6 +15,11 @@ excerpt: 'A couple of years I went to up the Center for History and New Media wi
 wordpress_id: 94
 wordpress_url: http://www.liquidfoot.com/?p=94
 date: 2008-09-26 14:04:35.000000000 -04:00
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 categories:
 - Featured
 tags:

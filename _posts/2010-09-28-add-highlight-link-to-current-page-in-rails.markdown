@@ -10,6 +10,11 @@ author_url: http://liquidfoot.com
 wordpress_id: 361
 wordpress_url: http://www.liquidfoot.com/?p=361
 date: 2010-09-28 11:55:22.000000000 -04:00
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 categories:
 - Programming
 tags:

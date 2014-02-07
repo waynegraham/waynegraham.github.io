@@ -16,6 +16,11 @@ categories:
 - mapping
 tags: []
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 We've been hosting an NEH Institute for Enabling Geospatial Scholarship this week and we have a lot of different folks coming together to talk about mapping issues in higher education. I almost haven't been able to keep my delicious tagging up with all the kewl new tools folks have been talking about.
 

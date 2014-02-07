@@ -13,6 +13,11 @@ date: 2009-08-28 08:44:09.000000000 -04:00
 categories: [development]
 tags: [ruby, capistrano]
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 
 We're currently starting a project at the Scholars' Lab in which we're going to use <a href="http://www.omeka.org">Omeka</a>. We're a Rails shop and use <a href="http://www.capify.org/index.php/Capistrano">Capistrano</a> to deploy projects to our staging and production servers all the time. Since I had read that Capistrano didn't need to be for Rails, I thought it would help out in deploying the PHP for our Omeka work.

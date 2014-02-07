@@ -16,6 +16,11 @@ excerpt: Growing up, I didn't watch football. When I got to college, it was one 
 wordpress_id: 87
 wordpress_url: http://www.liquidfoot.com/?p=87
 date: 2008-09-15 09:35:47.000000000 -04:00
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 categories:
 - Featured
 - Football

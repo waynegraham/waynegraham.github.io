@@ -16,6 +16,11 @@ tags:
 - Linux
 - Databases
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 
 I was setting my computer up for a database systems class I'm taking this semester. I got to the point of getting PostgreSQL 8.1, pgAdmin III, and the JDBC drivers installed, but I couldn't figure out how to connect to the darn thing. I knew it created the account postgres, but since I was installing through apt-get, there wasn't any point that I set the password.

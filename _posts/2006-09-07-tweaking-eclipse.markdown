@@ -17,6 +17,11 @@ tags:
 - Windows
 - Eclipse
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 
 I finally got fed up yesterday with the slow speed at which Eclipse was launching on my Windows box. On my Linux box, it doesn't take <em>that</em> long to launch (may five or six seconds) compared to my Windows box (around 15 - 20 seconds). I know I have a lot of plugins, but it was getting a little ridiculous. I started poking around and I noticed in the configuration details (Help / About Eclipse SDK / Configuration Details) that the vm that was launching was 1.4. Ok, so there's one problem. I also noticed that the max memory setting was 256MB (-Xmx256M). Since this box has 2GB of RAM, I figured 256MB is a little on the low side (and note, mucking around with the heap sizes won't help load times).

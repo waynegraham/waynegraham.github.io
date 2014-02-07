@@ -8,8 +8,8 @@ url:              http://localhost:4000
 owner:
   name:           Wayne Graham
   avatar:         wayne.png
-  bio:            "Your bio goes here. It shouldn't be super long but a good two sentences or two should suffice."
-  email:          you@email.com
+  bio:            "Head of the University of Virginia's Scholars' Lab R&D group."
+  email:          wayne.graham@virginia.edu
   # Social networking links used in footer. Update and remove as you like.
   twitter:        wayne_graham
   facebook:       
@@ -34,8 +34,6 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Theme Setup
-    url: /theme-setup
   - title: Scholars' Lab
     url: http://scholarslab.org
     external: true
@@ -50,7 +48,7 @@ markdown:    kramdown
 permalink:   /:categories/:title/
 
 # Amount of post to show on home page
-paginate: 5
+paginate: 10
 
 kramdown:
   auto_ids: true
@@ -68,3 +66,4 @@ kramdown:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+

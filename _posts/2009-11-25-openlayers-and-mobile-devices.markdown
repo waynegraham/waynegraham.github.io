@@ -19,6 +19,11 @@ tags:
 - openlayers
 - mobile
 - gis
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 comments:
 - id: 276
   author: Jaimin

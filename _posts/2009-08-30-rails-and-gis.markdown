@@ -23,6 +23,11 @@ categories:
 - Projects
 tags: []
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 As a part of my research time, I've started dusting off an old project I always wanted to get back to. Back in 2005 I started working with some folks who were starting to write an article on the development of architectural identity in the early Chesapeake for the William and Mary Quarterly. I wrote the application in ColdFusion and used MSSQL as the backend. When the same data was used for another article in the Journal of Southern History, I quickly whipped up an app that would at least display the information. I was never happy with it, but didn't have the time to undertake this again.
 

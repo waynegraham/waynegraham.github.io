@@ -15,6 +15,10 @@ categories:
 tags:
 - google
 comments: []
+image:
+  feature: abstract-2.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
 ---
 
 While Google Calendar has been getting most of the press these days, I noticed a few new features over at <a href="http://scholar.google.com/">Google Scholar</a> that were quite impressive.

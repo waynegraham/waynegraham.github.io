@@ -18,6 +18,11 @@ tags:
 - Web
 - AJAX
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 
 I've been playing with some form validation stuff for CF. I had been usign , but I wanted the HTML interface to act a bit more like the Flash interface, but I don't really want to use Flash. I've also been doing a lot more work with some of the DHTML libraries that AJAX has made popular, so I figured there had to be a relatively elegent way to do form validations with something like <a href="http://prototype.conio.net/%3Eprototype%3C/a%3E.%3C/p%3E%3Cp%3EI%20remembered%20seeing%20something%20on%20%3Ca%20href=">Ajaxian</a> about easy form validation and decided to give it a try. The article on <a href="http://tetlaw.id.au/view/blog/really-easy-field-validation-with-prototype/">Dexagogo</a> shows how they created a library to handle form-validations that doesn't require any other work than creating a form. This was just what I was looking for!

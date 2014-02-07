@@ -20,6 +20,11 @@ tags:
 - rpm
 - howto
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 I had meant to get this info out there a bit earlier, but we were sponsoring an <a href="http://www2.lib.virginia.edu/scholarslab/geospatial/">NEH Institute on Enabling Geospatial Scholarship</a>. That's a different post, but I did want to get back to Omeka and flush out building the RPM for Omeka.
 

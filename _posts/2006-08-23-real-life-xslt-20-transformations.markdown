@@ -18,6 +18,11 @@ tags:
 - XML
 - Web
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 
 I ran into a bit of a situation that was really blowing my mind. I have a rather large XML file (around 20,000+ lines) marked up in TEI that I wanted to do some transformations on (a day book and ledger from the 1850s). Essentially the code follows the format

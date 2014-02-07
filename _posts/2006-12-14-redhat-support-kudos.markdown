@@ -16,6 +16,11 @@ tags:
 - Server
 - Linux
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 It's been a while since I've posted anything, so I figured this would be a good point to start on...
 

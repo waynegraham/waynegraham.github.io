@@ -18,6 +18,11 @@ excerpt: Back in the day, I used to work on the <a href="http://mycroft.mozdev.o
 wordpress_id: 240
 wordpress_url: http://www.liquidfoot.com/?p=240
 date: 2009-01-15 12:34:12.000000000 -05:00
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 categories:
 - Projects
 - Computing

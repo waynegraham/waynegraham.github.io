@@ -15,6 +15,11 @@ excerpt: I’ve been going through a bunch of old stuff I’ve written as I clea
 wordpress_id: 223
 wordpress_url: http://www.liquidfoot.com/?p=223
 date: 2009-01-15 09:26:18.000000000 -05:00
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 categories:
 - Projects
 - Featured

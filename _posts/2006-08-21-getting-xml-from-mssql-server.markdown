@@ -18,6 +18,11 @@ tags:
 - AJAX
 - MSSQL
 comments: []
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+
 ---
 I've been playing with <a href="http://openrico.org/">all</a> <a href="http://swem.wm.edu/blogs/waynegraham/index.cfm/2006/scriptaculous">the</a> <a href="http://labs.adobe.com/technologies/spry/">AJAX</a> <a href="http://dojotoolkit.org/">stuff</a> <a href="http://developer.yahoo.com/yui/">that's</a> <a href="http://code.google.com/webtoolkit/">been</a> <a href="http://mochikit.com/">coming</a> <a href="http://www.aflax.org/">out</a> <a href="http://jquery.com/">lately</a>. I suppose that like a lot of folks, I was creating a query, then having a generic function that created the XML in a proxy file for the JavaScript (<a href="http://ray.camdenfamily.com/index.cfm/2006/7/13/ToXML-Update">Ray Camden has a really nice function for transforming a query to XML</a>).
 
