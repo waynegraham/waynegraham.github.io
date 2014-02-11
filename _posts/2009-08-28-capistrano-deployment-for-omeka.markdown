@@ -26,26 +26,29 @@ It took a little work, but I finally stumbled across Lee Hambley's <a href="http
 
 The install is pretty easy (assuming you have rubygems installed).
 
-~~~bash
-gem sources -a http://gems.github.com/ # make sure you have github sources installed
-gem install leehambley-railsless-deploy
-~~~
+{% highlight bash %}
+$ gem sources -a http://gems.github.com/ # make sure you have github sources installed
+$ gem install leehambley-railsless-deploy
+{% endhighlight %}
+
 
 After this, for rails apps, you just capify the project, but this command didn't seem to work, so I just manually added the Capfile in the root of the project directory with the snip provided on the project page:
 
-~~~ruby
+{% highlight ruby %}
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 # Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 
 require 'rubygems'
 require 'railsless-deploy'
 load    'config/deploy'
-~~~
+{% endhighlight %}
+
 
 After that, it was just a matter of using the recipes we typically use. Now, after we get the plugins we're developing ready to be deployed, all we have to do is
 
-~~~bash
-cap deploy
-~~~
+{% highlight bash %}
+$ cap deploy
+{% endhighlight %}
+
 
 Capistrano makes life so much easier!

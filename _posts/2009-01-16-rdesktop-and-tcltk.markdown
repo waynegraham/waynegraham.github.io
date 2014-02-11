@@ -32,7 +32,7 @@ comments: []
 ---
 <p>This is something I did a few years ago and has been very useful. I'm a *nix admin that occasionally needs to log on to a Windows server. I used rdesktop for a long time to do this. I wanted, though, a nice GUI that would allow me to pick which server I wanted (and an excuse to play a bit with Tcl). This is the script I came up with to do just this:</p>
 
-~~~ruby
+{% highlight ruby %}
 #! /usr/bin/wish
 
 wm title . "Remote Desktop Launcher"
@@ -66,7 +66,8 @@ proc Run { } {
     global server
     exec rdesktop -u &amp<user_name&amp> -p &amp<password&amp> -g 1280x800 -x b $server
 }
-~~~
+{% endhighlight %}
+
 
 
 <p>All you need to do is plugin "real" values for the server and addresses. You can also auto-login by giving values for the username and password (may also want to change the geometry of the window unless you have a big screen).</p>

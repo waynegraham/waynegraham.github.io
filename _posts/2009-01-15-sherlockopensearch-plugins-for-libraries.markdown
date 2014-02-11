@@ -39,7 +39,8 @@ comments: []
 
 <p>Right now, this only supports HTTP GET requests (POST parameters require an additional table), but here's the DDL:</p>
 
-~~~sql
+{% highlight sql %}
+
 CREATE TABLE `plugins` (
   `id` char(36) NOT NULL,
   `short_name` varchar(50) NOT NULL,
@@ -53,11 +54,11 @@ CREATE TABLE `plugins` (
   KEY `engine_index` (`engine`),
   KEY `short_name_index` (`short_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
-~~~
+{% endhighlight %}
 
 <p>You don't need all of these fields for every record, and here is some useful records...</p>
 
-~~~sql
+{% highlight sql %}
 INSERT INTO plugins (id, short_name, engine, input_encoding, method, proxy, url)
 VALUES (UUID(), ' JStor', 'jstor', 'UTF-8', 'get', 1, 'http://www.jstor.org/action/doBasicSearch?Query=');
 
@@ -81,12 +82,14 @@ VALUES (UUID(), 'Proquest UMI', 'umi', 'UTF-8', 'get', 1, 'http://proquest.umi.c
 
 INSERT INTO plugins (id, short_name, engine, input_encoding, method, proxy, url)
 VALUES (UUID(), 'Science Direct', 'sciencedirect', 'UTF-8', 'get', 1, 'http://www.sciencedirect.com/science/quicksearch?query=');
-~~~
+{% endhighlight %}
+
 
 <p>Apparently I wrote the queries with MDB2, I've since moved most of my interactions to Zend Db (you should be able to write that part pretty quickly) and just dump the names of the plugins in the tableon a view:</p>
 
-~~~php
->foreach($plugins as $plugin):
+{% highlight php %}
+
+foreach($plugins as $plugin):
 
     echo('<li>' . $plugin['short_name'] . ': ');
        echo(' <a href="openSearch.php?id=' . $plugin['id'] . '"><img src="images/a9.png" title="OpenSearch" /></a>'); 
@@ -99,13 +102,14 @@ VALUES (UUID(), 'Science Direct', 'sciencedirect', 'UTF-8', 'get', 1, 'http://ww
         echo('</li>);
 
 ');
-endforeach;<
-~~~
+endforeach;
+{% endhighlight %}
+
 
 <p>The add code is straight-forward</p>
 
 
-~~~php
+{% highlight php %}
 $result = $result[0];
 
 $short_name = $result['short_name'];
@@ -132,11 +136,12 @@ $xml = <<<EOT
 EOT;
 header("Content-Type: text/xml");
 echo($xml);
-~~~
+{% endhighlight %}
+
 
 You just need a little JavaScript to add this in to IE and Firefox:
 
-~~~javascript
+{% highlight javascript %}
 function addOpenSearch(name,ext,cat,pid,meth){
   if ((typeof window.external == "object") &#038;&#038; ((typeof window.external.AddSearchProvider == "unknown") || (typeof window.external.AddSearchProvider == "function"))) {
     // See bugs 430058/430067/430070 for Camino
@@ -149,6 +154,7 @@ function addOpenSearch(name,ext,cat,pid,meth){
     alert("You will need a browser which supports OpenSearch to install this plugin.");
   }
 }
-~~~
+{% endhighlight %}
+
 
 If I get some time soon, I'll wrap this up into a package; rudimentary, but a decent start to your own app!

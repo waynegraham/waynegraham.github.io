@@ -36,27 +36,27 @@ Now, in the case of Omeka, you don't really need a package manager if you're a s
 
 Building RPMs requires two things, the source you want to install and a specification (spec) file that tells the software what to do. You'll need to first set your system up to have the tools to build software which you can do with a couple of lines (as the root user):
 
-~~~bash
+{% highlight bash %}
 yum groupinstall "Development Tools"
 yum install rpmdevtools
-~~~
+{% endhighlight %}
 
 Next we need the directory hierarchy for building the RPMs. You can do this manually, but there's a handy tool for helping out called rpmdev-setuptree. In the terminal, if you run this command, it will create a new folder in your home directory named "rpmbuild" with the correct directories made for you.
 
-~~~bash
+{% highlight bash %}
 rpmdev-setuptree
-~~~
+{% endhighlight %}
 
 If you want these in a different location, say omeka_rpm, you can manually create the following hierarchy:
 
-~~~bash
+{% highlight bash %}
 mkdir -p ~/omeka_rpm/BUILD
 mkdir -p ~/omeka_rpm/BUILDROOT
 mkdir -p ~/omeka_rpm/RPMS
 mkdir -p ~/omeka_rpm/SOURCES
 mkdir -p ~/omeka_rpm/SPECS
 mkdir -p ~/omeka_rpm/SRPMS
-~~~~
+{% endhighlight %}
 
 For our purposes, we're really going to be dealing in the SOURCES and SPEC directories. Let's start with the setup for the source files. First you need to get the source files from <a href="http://omeka.org/download">Omeka's website</a> and put it into your SOURCES folder. We have to do some additional work with this file since it's packaged using zip and the RPM is expecting a gzipped tarball. The following code snip assumes you're using the default structure from the rpmdev-setuptree command and if a release after Omeka 1.1 is the most current, you will need to update the revision numbers.
 
