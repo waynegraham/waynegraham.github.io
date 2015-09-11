@@ -16,7 +16,7 @@ categories:
 - Computing
 tags:
 - omeka
-- fedorea
+- fedora
 - rpm
 - howto
 comments: []

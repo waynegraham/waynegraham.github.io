@@ -1,69 +1,75 @@
-title:            Wayne Graham
-description:      Random musings
-disqus_shortname: waynegrahamatgithubio
-#Your site's domain goes here. Leave localhost server or blank when working locally.
-url:
+# Site settings
 
-# Owner/author information
-owner:
-  name:           Wayne Graham
-  avatar:         wayne.png
-  bio:            "Head of the University of Virginia's Scholars' Lab R&D group."
-  email:          wayne.graham@virginia.edu
-  # Social networking links used in footer. Update and remove as you like.
-  twitter:        wayne_graham
-  facebook:
-  github:         waynegraham
-  stackexchange:
-  linkedin:
-  instagram:
-  flickr:
-  tumblr:
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:
+url: "https://waynegraham.github.io"
+title: "{ Wayne Graham }"
+description: "Blog and website of Wayne Graham, blogging mainly for digital humanities and tech. Opinions expressed are mine."
+keywords: "wayne, graham, wayne graham, digital humanities, humanities, 3D, technology, computer science, scholars' lab, scholars, virginia"
+favicon: "/img/favicon.ico"
+black-favicon: "/img/black-lab-glass.ico"
+google-tracking-id: "UA-46274579-1"
+disqus-shortname: "waynegrahamatgithubio"
 
-# Background image to be tiled on all pages
-background: ps_neutral.png
+# Navigation bar links
+# Blog link in the blog and post pages will point to the blog.html#blog
+# In the default page it will point to the preview of the last post
 
-# Analytics and webmaster tools stuff goes here
-google_analytics:
-google_verify:
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
+pages_list:
+  About: 'about'
+  Blog: 'blog'
+  Career: 'career'
+  Contact: 'contact'
 
-# Links to include in top navigation
-# For external links add external: true
-links:
-  - title: Scholars' Lab
-    url: http://scholarslab.org
-    external: true
+background-img: "/img/intro-bg.jpg"
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/New_York
-future:      true
-highlighter: pygments
-markdown:    kramdown
+# About variables
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+me-img: "/img/me.jpg"
 
-# Amount of post to show on home page
-paginate: 10
+# Blog variables
+paginate: 15
 
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: true
+paginate_path: "blog/page:num"
 
-  coderay:
-    coderay_line_numbers: nil
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+post-preview-words: 128
 
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+fb-share: True
+twitter-share: True
+reddit-share: True
 
+# Career variables
+
+events:
+  - image: "/img/career/scholarslab.png"
+    date: "February 2009 - Today"
+    description: "Head of Research & Development @ <a href=\"http://scholarslab.org\" target=\"_blank\">Scholars\' Lab</a>, working on geospatatial projects like Neatline and Geoblacklight; mentoring graduate fellows; teaching software development, photogrammetry, 3D visualization, and spatial interpretation."
+  - image: "/img/career/gilchrist-seal.jpg"
+    date: "April 2002 - January 2009"
+    description: "Emerging Technology Coordinator @ the <a href=\"http://swem.wm.edu\" target=\"_blank\">Earl Gregg Swem Library, College of William and Mary</a>. Worked on next-generation library search interfaces (<a href=\"http://vufind.org\">vufind</a>, <a href=\"http://projectblacklight.org\">Project Blacklight</a>, helped implement computer graphics and scientific visualization center, and implemented institutional repository infrastructure."
+  - image: "/img/career/Colonial_Williamsburg_Logo.jpg"
+    date: "May 2000 - March 2002"
+    description: "Research Assistant @ the <a href=\"http://research.history.org\" target=\"_blank\">Colonial Williamsburg Foundation's Department of Historical Research</a> working on digitizing the Foundation's collection of 17<sup>th</sup> and 18<sup>th</sup> century manuscripts, digital mapping, and artifact database."
+  - image: "/img/career/william-and-mary.png"
+    date: "August 1999 - May 2001"
+    description: "Master of Arts @ the <a href=\"http://www.wm.edu/as/history/gradprogram/\" target=\"_blank\">College of William & Mary</a> in History. My research focused on wealth distribution on the Virginia frontier during the US Colonial period."
+  - image: "/img/career/vmi.jpg"
+    date: "August 1995 - May 1999"
+    description: "Bachelor of Arts @ <a href=\"http://www.vmi.edu\" target=\"_blank\">Virginia Military Institute</a> in History and a minor in Business. Graduated with <em>Honors</em> and <em>Distinction</em>."
+
+# First image of the Career timeline
+career-img: "/img/career/wayne_icon.png"
+
+# Social networks variables (many more available: facebook, flickr, dribbble, pinterest, instagram, tumblr etc.)
+social:
+  - title: "rss"
+    url: "/feed.xml"
+  - title: "github"
+    url: "https://github.com/waynegraham"
+  - title: "linkedin"
+    url: "https://www.linkedin.com/pub/wayne-graham/9/59/170"
+  - title: "youtube"
+    url: "http://youtube.com/c/phybernightmare"
+
+404-img: "/img/labtocat.png"
+
+# Exclusion list from the generated _site
+exclude: ["Rakefile", "LICENSE", "readme.markdown", "vendor", "package.json", "node_modules"]
