@@ -9,6 +9,11 @@ black-favicon: "/img/black-lab-glass.ico"
 google-tracking-id: "UA-46274579-1"
 disqus-shortname: "waynegrahamatgithubio"
 
+# Gems for Github Pages
+gems:
+  - jekyll-sitemap
+  - jekyll-feed
+
 # Navigation bar links
 # Blog link in the blog and post pages will point to the blog.html#blog
 # In the default page it will point to the preview of the last post
@@ -17,6 +22,7 @@ pages_list:
   About: 'about'
   Blog: 'blog'
   Career: 'career'
+  Projects: 'projects'
   Contact: 'contact'
 
 background-img: "/img/intro-bg.jpg"
