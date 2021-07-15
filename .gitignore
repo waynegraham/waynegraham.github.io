@@ -5,3 +5,5 @@ _site
 _inclues/ga-account-number.txt
 .sass-cache
 node_modules/
+.bundle/
+.jekyll-cache/

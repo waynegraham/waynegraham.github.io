@@ -48,7 +48,7 @@ reddit-share: True
 events:
   - image: "/img/career/scholarslab.png"
     date: "February 2009 - Today"
-    description: "Head of Research & Development @ <a href=\"http://scholarslab.org\" target=\"_blank\">Scholars\' Lab</a>, working on geospatatial projects like Neatline and Geoblacklight; mentoring graduate fellows; teaching software development, photogrammetry, 3D visualization, and spatial interpretation."
+    description: Head of Research & Development @ <a href=\"http://scholarslab.org\" target=\"_blank\">Scholars\' Lab</a>, working on geospatatial projects like Neatline and Geoblacklight; mentoring graduate fellows; teaching software development, photogrammetry, 3D visualization, and spatial interpretation.
   - image: "/img/career/gilchrist-seal.jpg"
     date: "April 2002 - January 2009"
     description: "Emerging Technology Coordinator @ the <a href=\"http://swem.wm.edu\" target=\"_blank\">Earl Gregg Swem Library, College of William and Mary</a>. Worked on next-generation library search interfaces (<a href=\"http://vufind.org\">vufind</a>, <a href=\"http://projectblacklight.org\">Project Blacklight</a>, helped implement computer graphics and scientific visualization center, and implemented institutional repository infrastructure."
