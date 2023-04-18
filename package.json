@@ -1,0 +1,41 @@
+{
+  "name": "waynegraham.github.io",
+  "version": "1.0.0",
+  "description": "My personal stuff",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/waynegraham/waynegraham.github.io"
+  },
+  "scripts": {
+    "watch:sass": "sass --watch src/_sass:docs/assets/css",
+    "build:sass": "sass src/_sass:docs/assets/css",
+    "watch:eleventy": "eleventy --serve",
+    "build:eleventy": "npx @11ty/eleventy",
+    "start": "npm-run-all build:sass --parallel watch:*",
+    "build": "npm-run-all build:*",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy --serve"
+  },
+  "author": {
+    "name": "Wayne Graham",
+    "url": "https://waynegraham.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/waynegraham/waynegraham.github.io/issues"
+  },
+  "homepage": "https://github.com/waynegraham/waynegraham.github.io",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-img": "^3.1.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-bundle": "^1.0.4",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "luxon": "^3.3.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.7",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.62.0"
+  }
+}

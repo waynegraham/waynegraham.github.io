@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrating from Subversion to git</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+
+<h1>Migrating from Subversion to git</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2015-02-06">06 February 2015</time></li>
+</ul>
+
+<p>Scholars' Lab not only writes <a href="https://github.com/scholarslab">software</a> and mentors graduate students, it also manages a lot of software projects that have been going on at the University of Virginia since the 90s. One of the things you need to do every so often is shift platforms that you use in your infrastructure.</p>
+<p>When I arrived at the Scholars' Lab six years ago, one of the big
+projects that was underway was dealing with all of the text that had
+accumulated various servers. To help get a handle on the projects, lots
+of people started using source control management software to start
+keeping track of changes (and recover more quickly if files were
+accidently deleted). At the time, Subversion was the best option, so a
+big push was made to convert all of these projects in to Subversion
+repositories.</p>
+<p>While Subversion is really great in a lot of ways, it did have some
+issues that often made working with the tool quite painful. It was even
+worse for people who did not use the tool every day and could often get
+in to situations where a project would languish for months for an
+obscure issue with a SVN client or server.</p>
+<p>As software development shifted to using <code>git</code> (which I attribute mainly
+to the rise in the utility of GitHub), Scholars' Lab staff pretty much
+started using <code>git</code> exclusively.</p>
+<h2 id="migrating-the-repo" tabindex="-1">Migrating the Repo <a class="header-anchor" href="#migrating-the-repo">#</a></h2>
+<p>The first step in this migration was to grab a list of authors who had
+worked on the project since <code>git</code> and <code>svn</code> have different methods of
+mapping author attribution.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token builtin class-name">cd</span> path/to/svn_repo
+$ svn log <span class="token parameter variable">-q</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token string">'|'</span> <span class="token string">'/^r/ {sub("^ ", "", $2); sub(" $", "", $2); print $2" = "$2" &lt;"$2">"}'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-u</span> <span class="token operator">></span> authors.txt</code></pre>
+<p>Next, you need to edit the <code>authors.txt</code> file a bit to expand the username mappings. In the file, you'll see <code>username = username &lt;username&gt;</code>. You just need to use the person's real name and email address.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">wsg4w <span class="token operator">=</span> Wayne Graham <span class="token operator">&lt;</span>wsg4w@uva.edu<span class="token operator">></span></code></pre>
+<h2 id="clone-the-repo" tabindex="-1">Clone the Repo <a class="header-anchor" href="#clone-the-repo">#</a></h2>
+<p>This is where things got <em>interesting</em>. The <code>git svn</code> tool is generally
+where I go to do this thing, but the repository I'm dealing with is
+really big, and has a non-standard layout. The first thing I tried was
+this:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">mkdir</span> ~/temp
+$ <span class="token builtin class-name">cd</span> path/to/svn_repo
+$ <span class="token function">git</span> svn clone https://subversion.lib.virginia.edu/repos/salem <span class="token parameter variable">--username</span> wsg4w --no-metadata <span class="token parameter variable">-A</span> authors.txt <span class="token parameter variable">--stdlayout</span> ~/temp</code></pre>
+<p>However, this failed after the server threw a 500 error. Ok, so rethink
+this. I can create a local sync of the SVN repo which should allow me to
+recover from a server failure.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /tmp/salem
+$ svnadmin create /tmp/salem/
+$ <span class="token builtin class-name">echo</span> <span class="token string">"exit 0;"</span> <span class="token operator">></span> /tmp/test-svn/hooks/pre-revprop-change
+$ <span class="token function">chmod</span> +x /tmp/salem/hooks/pre-revprop-change
+$ svnsync init file:///tmp/salem https://subversion.lib.virginia.edu/repos/salem
+$ svnsync <span class="token function">sync</span> file:///tmp/salem</code></pre>
+
+</body>
+<footer></footer>
+<!-- Current page: /posts/2015-02-06-svn-to-git/ -->
+</html>

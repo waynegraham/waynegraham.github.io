@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
+	<title>Wayne Graham&#39;s Musings</title>
+	<subtitle>I write about my experiences...randomly</subtitle>
+	<link href="https://waynegraham.github.io/feed/feed.xml" rel="self"/>
+	<link href="https://waynegraham.github.io/"/>
+	<updated>2015-02-06T00:00:00Z</updated>
+	<id>https://waynegraham.github.io</id>
+	<author>
+		<name>Wayne Graham</name>
+		<email>wayne.graham@gmail.com</email>
+	</author>
+	
+	<entry>
+		<title>Migrating from Subversion to git</title>
+		<link href="https://waynegraham.github.io/posts/2015-02-06-svn-to-git/"/>
+		<updated>2015-02-06T00:00:00Z</updated>
+		<id>https://waynegraham.github.io/posts/2015-02-06-svn-to-git/</id>
+		<content type="html">&lt;p&gt;Scholars&#39; Lab not only writes &lt;a href=&quot;https://github.com/scholarslab&quot;&gt;software&lt;/a&gt; and mentors graduate students, it also manages a lot of software projects that have been going on at the University of Virginia since the 90s. One of the things you need to do every so often is shift platforms that you use in your infrastructure.&lt;/p&gt;
+&lt;p&gt;When I arrived at the Scholars&#39; Lab six years ago, one of the big
+projects that was underway was dealing with all of the text that had
+accumulated various servers. To help get a handle on the projects, lots
+of people started using source control management software to start
+keeping track of changes (and recover more quickly if files were
+accidently deleted). At the time, Subversion was the best option, so a
+big push was made to convert all of these projects in to Subversion
+repositories.&lt;/p&gt;
+&lt;p&gt;While Subversion is really great in a lot of ways, it did have some
+issues that often made working with the tool quite painful. It was even
+worse for people who did not use the tool every day and could often get
+in to situations where a project would languish for months for an
+obscure issue with a SVN client or server.&lt;/p&gt;
+&lt;p&gt;As software development shifted to using &lt;code&gt;git&lt;/code&gt; (which I attribute mainly
+to the rise in the utility of GitHub), Scholars&#39; Lab staff pretty much
+started using &lt;code&gt;git&lt;/code&gt; exclusively.&lt;/p&gt;
+&lt;h2 id=&quot;migrating-the-repo&quot; tabindex=&quot;-1&quot;&gt;Migrating the Repo &lt;a class=&quot;header-anchor&quot; href=&quot;https://waynegraham.github.io/posts/2015-02-06-svn-to-git/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The first step in this migration was to grab a list of authors who had
+worked on the project since &lt;code&gt;git&lt;/code&gt; and &lt;code&gt;svn&lt;/code&gt; have different methods of
+mapping author attribution.&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; path/to/svn_repo
+$ svn log &lt;span class=&quot;token parameter variable&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-F&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;|&#39;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;/^r/ {sub(&quot;^ &quot;, &quot;&quot;, $2); sub(&quot; $&quot;, &quot;&quot;, $2); print $2&quot; = &quot;$2&quot; &amp;lt;&quot;$2&quot;&gt;&quot;}&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-u&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; authors.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, you need to edit the &lt;code&gt;authors.txt&lt;/code&gt; file a bit to expand the username mappings. In the file, you&#39;ll see &lt;code&gt;username = username &amp;lt;username&amp;gt;&lt;/code&gt;. You just need to use the person&#39;s real name and email address.&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;wsg4w &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Wayne Graham &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;wsg4w@uva.edu&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;clone-the-repo&quot; tabindex=&quot;-1&quot;&gt;Clone the Repo &lt;a class=&quot;header-anchor&quot; href=&quot;https://waynegraham.github.io/posts/2015-02-06-svn-to-git/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This is where things got &lt;em&gt;interesting&lt;/em&gt;. The &lt;code&gt;git svn&lt;/code&gt; tool is generally
+where I go to do this thing, but the repository I&#39;m dealing with is
+really big, and has a non-standard layout. The first thing I tried was
+this:&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; ~/temp
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; path/to/svn_repo
+$ &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; svn clone https://subversion.lib.virginia.edu/repos/salem &lt;span class=&quot;token parameter variable&quot;&gt;--username&lt;/span&gt; wsg4w --no-metadata &lt;span class=&quot;token parameter variable&quot;&gt;-A&lt;/span&gt; authors.txt &lt;span class=&quot;token parameter variable&quot;&gt;--stdlayout&lt;/span&gt; ~/temp&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, this failed after the server threw a 500 error. Ok, so rethink
+this. I can create a local sync of the SVN repo which should allow me to
+recover from a server failure.&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-p&lt;/span&gt; /tmp/salem
+$ svnadmin create /tmp/salem/
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;exit 0;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /tmp/test-svn/hooks/pre-revprop-change
+$ &lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x /tmp/salem/hooks/pre-revprop-change
+$ svnsync init file:///tmp/salem https://subversion.lib.virginia.edu/repos/salem
+$ svnsync &lt;span class=&quot;token function&quot;&gt;sync&lt;/span&gt; file:///tmp/salem&lt;/code&gt;&lt;/pre&gt;
+</content>
+	</entry>
+</feed>
