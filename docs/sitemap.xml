@@ -322,11 +322,6 @@
 	</url>
 	
 	<url>
-		<loc>https://waynegraham.github.io/tags/linux/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
 		<loc>https://waynegraham.github.io/tags/coldfusion/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
@@ -338,6 +333,11 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/web/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/linux/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -367,6 +367,16 @@
 	</url>
 	
 	<url>
+		<loc>https://waynegraham.github.io/tags/javascript/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/server/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://waynegraham.github.io/tags/java/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
@@ -378,16 +388,6 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/eclipse/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/javascript/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/server/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -433,16 +433,6 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/graphics/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/solrmarc/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/dspace/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -522,6 +512,16 @@
 	</url>
 	
 	<url>
+		<loc>https://waynegraham.github.io/tags/solrmarc/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/dspace/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://waynegraham.github.io/tags/tips/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
@@ -533,11 +533,6 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/ubuntu/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/authentication/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -558,36 +553,6 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/steelers/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/zotero/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/reuters/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/lawsuit/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/nfs/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/geek/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/storage/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -617,6 +582,26 @@
 	</url>
 	
 	<url>
+		<loc>https://waynegraham.github.io/tags/authentication/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/zotero/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/reuters/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/lawsuit/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://waynegraham.github.io/tags/igoogle/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
@@ -638,6 +623,21 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/library/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/nfs/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/geek/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/storage/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	
@@ -697,21 +697,6 @@
 	</url>
 	
 	<url>
-		<loc>https://waynegraham.github.io/tags/openlayers/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/mobile/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://waynegraham.github.io/tags/gis/</loc>
-		<lastmod>2023-04-18</lastmod>
-	</url>
-	
-	<url>
 		<loc>https://waynegraham.github.io/tags/rails/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
@@ -728,6 +713,21 @@
 	
 	<url>
 		<loc>https://waynegraham.github.io/tags/urlhelper/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/openlayers/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/mobile/</loc>
+		<lastmod>2023-04-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://waynegraham.github.io/tags/gis/</loc>
 		<lastmod>2023-04-18</lastmod>
 	</url>
 	

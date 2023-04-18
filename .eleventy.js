@@ -1,15 +1,27 @@
+// core node 
+const path = require("path");
+// libraries
 const { DateTime } = require("luxon");
 const markdownItAnchor = require("markdown-it-anchor");
-
+// eleventy plugins
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
+const Image = require("@11ty/eleventy-img");
+
 module.exports = function(eleventyConfig) {
 
-    eleventyConfig.addPassthroughCopy('assets');
+	function relativeToInputPath(inputPath, relativeFilePath) {
+		let split = inputPath.split("/");
+		split.pop();
+
+		return path.resolve(split.join(path.sep), relativeFilePath);
+	}
+
+    eleventyConfig.addPassthroughCopy("src/assets/");
 
     // Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
@@ -25,6 +37,25 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginBundle);
+
+	// Eleventy Image shortcode
+	// https://www.11ty.dev/docs/plugins/image/
+	eleventyConfig.addShortcode("image", async function(src, alt) {
+		if(alt === undefined) {
+			// You bet we throw an error on missing alt (alt="" works okay)
+			throw new Error(`Missing \`alt\` on myImage from: ${src}`);
+		}
+
+		let metadata = await Image(src, {
+			widths: [600],
+			formats: ["jpeg"]
+		});
+
+		console.log('metadata', metadata);
+
+		let data = metadata.jpeg[metadata.jpeg.length - 1];
+		return `<img src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async">`;
+	});
 
     // Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
