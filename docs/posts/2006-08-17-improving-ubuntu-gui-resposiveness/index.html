@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improving Ubuntu GUI Resposiveness</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Improving Ubuntu GUI Resposiveness</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-08-17">17 August 2006</time></li>
+</ul>
+
+<p>I ran across this on Digg under the title <a href="http://martin.ankerl.org/2006/08/16/how-to-make-firefox-40-percent-faster/">How to Make Firefox Over 40% Faster</a>. While the improvement actually has nothing to do with Firefox, it does cover how to improve the CPU scaling settings.</p>
+<p>Quick breakdown...</p>
+<p>Uninstall powernowd</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove powernowd</code></pre>
+<p>Enable speed-stepping (I'm running Centrino)</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> modprobe speedstep-centrino</code></pre>
+<p>Enable the ondemand governor</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> modprobe cpufreq-ondemand</code></pre>
+<p>This step is a change from Martin's directions, his says to use sudo, but you can't write to /sys with sudo, so</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token builtin class-name">echo</span> ondemand <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor</code></pre>
+<p>Now it's just a matter of updating your performance settings:</p>
+<p>Open <em>/etc/modules</em> and add</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">speedstep-centrino
+cpufreq-ondemand</code></pre>
+<p>Install sysfsutils</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> sysfsutils</code></pre>
+<p>Add to /etc/sysfs.conf</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">devices/system/cpu/cpu0/cpufreq/scaling_governor<span class="token operator">=</span>ondemand</code></pre>
+<p>Basically what this is doing is stepping up the processor frequency if the CPU reaches 80% utilization.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-07-21-ie-7-beta-3-in-standalone-mode/">IE 7 beta 3 in Standalone Mode</a></li><li>Next: <a href="/posts/2006-08-21-getting-xml-from-mssql-server/">Getting XML from MSSQL Server</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-08-17-improving-ubuntu-gui-resposiveness/ -->
+</html>

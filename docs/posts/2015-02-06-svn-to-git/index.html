@@ -10,7 +10,20 @@
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
 
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
 <h1>Migrating from Subversion to git</h1>
 
 <ul class="post-metadata">
@@ -60,6 +73,9 @@ $ <span class="token function">chmod</span> +x /tmp/salem/hooks/pre-revprop-chan
 $ svnsync init file:///tmp/salem https://subversion.lib.virginia.edu/repos/salem
 $ svnsync <span class="token function">sync</span> file:///tmp/salem</code></pre>
 
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2014-02-07-modern-takes-on-classic-art/">Modern Takes on Classic Art</a></li>
+</ul>
+    </main>
 </body>
 <footer></footer>
 <!-- Current page: /posts/2015-02-06-svn-to-git/ -->

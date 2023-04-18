@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic rvm gemsets</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Automatic rvm gemsets</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2010-10-03">03 October 2010</time></li>
+</ul>
+
+<p>I've been using Ruby version manager (rvm) for a while now, but hadn't really been paying too much attention to its new features. Over the weekend, I ran in to perhaps one of the coolest new features: project-level configurations. Essentially this allows you to set up your Ruby project to automatically switch gemsets when you enter the directory with the terminal.</p>
+<p>To try this out, I created a new gemset and then told my project about it:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">rvm gemset create project_name
+<span class="token function">cat</span> <span class="token string">"rvm ruby@project_name"</span> <span class="token operator">></span> path/to/project/.rvmrc</code></pre>
+<p>Now, when you <code>cd</code> in to the directory, rvm will automagically switch gemsets for you. No more firing up rails only to get the error message that you don't have the right rubies installed. Great time saver, and if you're managing projects that aren't using bundler yet, a real time saver!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2010-09-28-add-highlight-link-to-current-page-in-rails/">Add highlight link to current page in Rails</a></li><li>Next: <a href="/posts/2012-01-02-disaster-averted/">Disaster Averted</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2010-10-03-automatic-rvm-gemsets/ -->
+</html>

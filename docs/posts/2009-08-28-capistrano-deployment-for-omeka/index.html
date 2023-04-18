@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capistrano Deployment for Omeka</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Capistrano Deployment for Omeka</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-08-28">28 August 2009</time></li>
+</ul>
+
+<p>We're currently starting a project at the Scholars' Lab in which we're going to use <a href="http://www.omeka.org">Omeka</a>. We're a Rails shop and use <a href="http://www.capify.org/index.php/Capistrano">Capistrano</a> to deploy projects to our staging and production servers all the time. Since I had read that Capistrano didn't need to be for Rails, I thought it would help out in deploying the PHP for our Omeka work.</p>
+<p>It took a little work, but I finally stumbled across Lee Hambley's <a href="http://github.com/leehambley/railsless-deploy/tree/master">railsless-deploy</a> project over on Github.</p>
+<p>The install is pretty easy (assuming you have rubygems installed).</p>
+<pre><code>$ gem sources -a http://gems.github.com/ # make sure you have github sources installed
+$ gem install leehambley-railsless-deploy
+</code></pre>
+<p>After this, for rails apps, you just capify the project, but this command didn't seem to work, so I just manually added the Capfile in the root of the project directory with the snip provided on the project page:</p>
+<pre><code>load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+# Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+
+require 'rubygems'
+require 'railsless-deploy'
+</code></pre>
+<p>After that, it was just a matter of using the recipes we typically use. Now, after we get the plugins we're developing ready to be deployed, all we have to do is</p>
+<pre><code>$ cap deploy
+</code></pre>
+<p>Capistrano makes life so much easier!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-01-25-because-im-a-geek/">Because I&#39;m a Geek</a></li><li>Next: <a href="/posts/2009-08-30-rails-and-gis/">Rails and GIS</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-08-28-capistrano-deployment-for-omeka/ -->
+</html>

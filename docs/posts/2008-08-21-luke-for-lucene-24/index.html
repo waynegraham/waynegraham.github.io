@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luke for Lucene 2.4</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Luke for Lucene 2.4</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-08-21">21 August 2008</time></li>
+</ul>
+
+<p>On the Vufind project, I've been migrating the Solrmarc codebase to use Solr 1.3. It's got a lot of nifty changes (the multi-core and DataImportHandler are really nice additions), including moving to Lucene 2.4 for the actual indexing.</p>
+<p>On the down side, this means that <a href="http://www.getopt.org/luke/">Luke </a>doesn't have the correct analyzers or format interpretors (you get an incorrect format excpetion).</p>
+<p>The fix is pretty quick. Just download the source tarball/zip for Luke (at the bottom of the page) and extract them somewhere. Then, grab a build of the Lucene 2.4 core, analyzers, and snowball analyzer (I grabbed mine from the <a href="http://people.apache.org/builds/lucene/solr/nightly/">Solr nightly build</a>).</p>
+<p>Just throw the jars into Luke's lib folder (e.g. ~/luke-src-0.8-dev/lib) and then rebuild with Ant (ant). This will build the jars in the dist folder. You should be able to check out your index to make sure everything is good in the index.</p>
+<p>If you're lazy and just want the one I created, here you go: <a href="http://www.liquidfoot.com/wp-content/uploads/2008/08/luke-08-dev.jar">luke-08-dev</a></p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-08-05-open-source-facebook-application/">Open Source Facebook Application</a></li><li>Next: <a href="/posts/2008-09-03-choosing-a-php-framework/">Choosing a PHP Framework</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-08-21-luke-for-lucene-24/ -->
+</html>

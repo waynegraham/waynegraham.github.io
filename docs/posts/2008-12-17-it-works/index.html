@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It Works!</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>It Works!</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-12-18">18 December 2008</time></li>
+</ul>
+
+<p>With my departure from W&amp;M we talked about the deployment of the second Sun X4500 for the library. My original plan was to wait until the 10/08 system came out (which had the SAMBA stuff in the kernel) and then deploy the hardware with ZFS and Z-RAID. However, no one else really has any experience with either administering SAMBA or Solaris. I had read that Windows could be installed on these servers. It's a bit of a sacrilege, but it should help out until they find a replacement.</p>
+<p>The Sun Installation Assistant CD really took all the work out of setting the thing up...it includes all the required drivers for the hard drives and NIC. Took a while since I was redirecting the KVM through the ILOM and sharing my ROM drive. Everything went very well, but I did notice that the OS I installed (Windows 2003 R2 Standard) has a limit of 4GB. I couldn't for the life of me figure out what happend to the other 12GB. Been in *nix too long and forgot that Microsoft puts limits on the amount of RAM a server can support. I just need to reinstall with Enterprise edition. Not a huge deal, but it's one of those things I wish I would have known/remembered.</p>
+<p>I did set up a &quot;test&quot; share (it's primarily to give our media center access to a lot of storage), but I ran into an issue(s) with OS X. Seems the mount would take, but you can't see any of the files. You can move files to the server, but they don't show up.</p>
+<p>I think the bandwidth should be ok coming from the media center. There's full gigE from the desktop to the server and I ganged the NICs.</p>
+<p>I wished I could have used the Z-RAID, and I'm not sure that the Windows Dynamic RAID-5 will do quite the same job, but it's a step forward in getting some storage (and not attached hard drives) for media production.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-11-21-updated-xsl-for-mods/">Updated XSL for MODS</a></li><li>Next: <a href="/posts/2009-01-06-what-is-a-database/">What Is a Database?</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-12-17-it-works/ -->
+</html>

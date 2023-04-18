@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vufind and Sirsi</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Vufind and Sirsi</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-09-05">05 September 2008</time></li>
+</ul>
+
+<p>I committed a bunch of small fixes into the <a href="http://code.google.com/p/solrmarc">Solrmarc</a> and <a href="http://www.vufind.org">Vufind</a> projects today to deal with the release of Solr 1.3 RC 2. We're using the multicore functionality of Solr for Vufind and we were having some issues with the resource loaders for the different cores. The fix was pretty minor, just creating a <a href="http://lucene.apache.org/solr/api/org/apache/solr/core/CoreContainer.html">CoreContainer</a> and set the SolrCore from that:</p>
+<pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">CoreContainer</span> cc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CoreContainer</span><span class="token punctuation">(</span>solrCoreDir<span class="token punctuation">,</span> configFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+solrCore <span class="token operator">=</span> cc<span class="token punctuation">.</span><span class="token function">getCore</span><span class="token punctuation">(</span>solrCorename<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Ok, so that was more of an update, but it got me to reindex the our marc content. Our 001 fields don't always have info, so our Systems Librarian told me just to use the 035a for the id field. There was only one problem...they had a &quot;(Sirsi)&quot; as a prefix to the actual number. This wouldn't be that big of an issue, but it was causing the queries sent to Solr to be off, and I wasn't getting any results for a detail view.</p>
+<p>Fortunately, Solrmarc already has a facility to deal with this: PatternMaps! To pull out just the number, I changed the id definition in the vufind.properties file to</p>
+<pre class="language-java" tabindex="0"><code class="language-java">id <span class="token operator">=</span> <span class="token number">035</span>a<span class="token punctuation">,</span> <span class="token punctuation">(</span>pattern_map<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span> first</code></pre>
+<p>This basically maps the id field in the schema.xml file to the 035a, using a patternMap named pattern_map.id, and only takes the first of the 035a if there are multiples. I know, there shouldn't be, but I've seen funky things :)</p>
+<p>Now, to add the PatternMap definition:</p>
+<pre class="language-java" tabindex="0"><code class="language-java">pattern_map<span class="token punctuation">.</span>id<span class="token punctuation">.</span>pattern_0 <span class="token operator">=</span> \\<span class="token punctuation">(</span><span class="token class-name">Sirsi</span>\\<span class="token punctuation">)</span>\\ <span class="token punctuation">(</span><span class="token punctuation">.</span>*<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span>$<span class="token number">1</span><span class="token punctuation">[</span><span class="token operator">/</span>code<span class="token punctuation">]</span>
+
+<span class="token class-name">It</span>'s just a simple regex pattern definition that takes out the <span class="token string">"(Sirsi)"</span> and the space between it and the actual id we're using<span class="token punctuation">.</span></code></pre>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-09-03-choosing-a-php-framework/">Choosing a PHP Framework</a></li><li>Next: <a href="/posts/2008-09-11-virtualbox-20/">Virtualbox 2.0</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-09-05-vufind-and-sirsi/ -->
+</html>

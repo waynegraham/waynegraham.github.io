@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting XML from MSSQL Server</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Getting XML from MSSQL Server</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-08-21">21 August 2006</time></li>
+</ul>
+
+<p>I've been playing with <a href="http://openrico.org/">all</a> <a href="http://swem.wm.edu/blogs/waynegraham/index.cfm/2006/scriptaculous">the</a> <a href="http://labs.adobe.com/technologies/spry/">AJAX</a> <a href="http://dojotoolkit.org/">stuff</a> <a href="http://developer.yahoo.com/yui/">that's</a> <a href="http://code.google.com/webtoolkit/">been</a> <a href="http://mochikit.com/">coming</a> <a href="http://www.aflax.org/">out</a> <a href="http://jquery.com/">lately</a>. I suppose that like a lot of folks, I was creating a query, then having a generic function that created the XML in a proxy file for the JavaScript (<a href="http://ray.camdenfamily.com/index.cfm/2006/7/13/ToXML-Update">Ray Camden has a really nice function for transforming a query to XML</a>).</p>
+<p>Last week I was doing some research to find a way to do some XML searching and stumbled upon the <a href="http://msdn2.microsoft.com/en-us/library/ms190922.aspx">FOR XML</a> statement. I knew that most RDBMSs were capable of dealing with XML record sets, but it's been years since I've even looked at any of the XML stuff for MSSQL.</p>
+<p>The FOR XML statement returns a query result and transforms rows into XML elements. There are three arguments that this can take:</p>
+<ul>
+	<li><a href="http://msdn2.microsoft.com/en-us/library/ms175140.aspx">RAW</a>: Transforms each row into an element with a generic identifier (<row/>) as the element tag.</li>
+	<li><a href="http://msdn2.microsoft.com/en-us/library/ms188273.aspx">AUTO</a>: Returns the results in a simple nested XML tree</li>
+	<li><a href="http://msdn2.microsoft.com/en-us/library/ms175140.aspx">EXPLICIT</a>: Allows you to define the XML tree returned</li>
+</ul>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-08-17-improving-ubuntu-gui-resposiveness/">Improving Ubuntu GUI Resposiveness</a></li><li>Next: <a href="/posts/2006-08-23-real-life-xslt-20-transformations/">Real Life XSLT 2.0 transformations</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-08-21-getting-xml-from-mssql-server/ -->
+</html>

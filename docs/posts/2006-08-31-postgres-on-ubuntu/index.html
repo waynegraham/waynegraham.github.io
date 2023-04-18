@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postgres on Ubuntu</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Postgres on Ubuntu</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-08-31">31 August 2006</time></li>
+</ul>
+
+<p>I was setting my computer up for a database systems class I'm taking this semester. I got to the point of getting PostgreSQL 8.1, pgAdmin III, and the JDBC drivers installed, but I couldn't figure out how to connect to the darn thing. I knew it created the account postgres, but since I was installing through apt-get, there wasn't any point that I set the password.</p>
+<p>I finally broke down and started reading the documentation (which is excellent by the way), but all of the documents about the initial configuration were on compiling from the sources. I finally got tired of clicking &quot;Next&quot; in the docbook files and stumbled across a post at <a href="http://hocuspok.us/journal/postgresql-on-ubuntu-linux-how-to-updated">hocuspok.us</a>.</p>
+<p>The step I was missing (and I'm sure I would have eventually found) was running:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">su</span> postgres <span class="token parameter variable">-c</span> psql template1
+<span class="token assign-left variable">template1</span><span class="token operator">=</span><span class="token comment"># ALTER USER postgres WITH PASSWORD '$password$';</span>
+<span class="token assign-left variable">template1</span><span class="token operator">=</span><span class="token comment"># \q</span></code></pre>
+<p>Even after just playing with this for a couple of hours, I'm seriosly thinking of changing my development DB from MySQL to PostgreSQL. Pretty impressive!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-08-23-real-life-xslt-20-transformations/">Real Life XSLT 2.0 transformations</a></li><li>Next: <a href="/posts/2006-09-07-tweaking-eclipse/">Tweaking Eclipse</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-08-31-postgres-on-ubuntu/ -->
+</html>

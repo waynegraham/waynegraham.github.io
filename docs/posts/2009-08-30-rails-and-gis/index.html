@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rails and GIS</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Rails and GIS</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-08-30">30 August 2009</time></li>
+</ul>
+
+<p>As a part of my research time, I've started dusting off an old project I always wanted to get back to. Back in 2005 I started working with some folks who were starting to write an article on the development of architectural identity in the early Chesapeake for the William and Mary Quarterly. I wrote the application in ColdFusion and used MSSQL as the backend. When the same data was used for another article in the Journal of Southern History, I quickly whipped up an app that would at least display the information. I was never happy with it, but didn't have the time to undertake this again.</p>
+<p>One of the things I never liked the way I handled was describing the basic location. At first the architectural historians wanted to use UTM coordinates. I switched to latitute/longitude and wrote some conversion code to switch between the two. I was bothered, though, that describing a &quot;site&quot; by a point. Obviously a site is an area that contains some number n buildings. Even worse, the points were really just the centroids of the county/city of the information that was entered as the archaeologists didn't have have information. There had to be a better way to approach the description of this information over time.</p>
+<p>I started working at UVa earlier this spring and one of their big pushes has been GIS in the humanities. A light went off and I saw a rather nice use of using the concepts of GIS to better describe and interact with my information. I also really wanted to migrate the information to a more open format as well as really spend some time envisioning what the application should look like.</p>
+<p>I've started working on this migration and have posted it on <a href="http://github.com/waynegraham/DECA">Github</a>. To give a brief explanation of how the application. I'm using PostGIS as the backend. On OS X, getting this ready took a bit, but I think I got it explained in the README file decently. It took a while to get the correct templates ready in PostgreSQL.</p>
+<p>I'm using OpenLayers for interacting with the maps (through <a href="http://github.com/pka/map_layers/tree/master">map_layers</a>), and the <a href="http://github.com/fragility/spatial_adapter/tree/master">spatial_adapter</a> plugin and the <a href="http://georuby.rubyforge.org/">GeoRuby</a> gem.</p>
+<p>I'm expecting there to be some refactoring of the data from MSSQL, but I think PostgreSQL will be a much better solution for my open source leanings.</p>
+<p>I'll try to keep this updated with my progress...at least until our development blog gets off the ground.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-08-28-capistrano-deployment-for-omeka/">Capistrano Deployment for Omeka</a></li><li>Next: <a href="/posts/2009-11-11-deploying-omeka/">Deploying Omeka</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-08-30-rails-and-gis/ -->
+</html>

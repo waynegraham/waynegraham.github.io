@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweaking Eclipse</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Tweaking Eclipse</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-09-07">07 September 2006</time></li>
+</ul>
+
+<p>I finally got fed up yesterday with the slow speed at which Eclipse was launching on my Windows box. On my Linux box, it doesn't take <em>that</em> long to launch (may five or six seconds) compared to my Windows box (around 15 - 20 seconds). I know I have a lot of plugins, but it was getting a little ridiculous. I started poking around and I noticed in the configuration details (Help / About Eclipse SDK / Configuration Details) that the vm that was launching was 1.4. Ok, so there's one problem. I also noticed that the max memory setting was 256MB (-Xmx256M). Since this box has 2GB of RAM, I figured 256MB is a little on the low side (and note, mucking around with the heap sizes won't help load times).</p>
+<p>The first thing I did was change the shorcut target for Eclipse to be</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">C:<span class="token punctuation">\</span>eclipse<span class="token punctuation">\</span>eclipse.exe <span class="token parameter variable">-vm</span> <span class="token string">"C:\Program Files\Java\jdk1.5.0_08<span class="token entity" title="\b">\b</span>in\javaw.exe"</span></code></pre>
+<p>Now I'm sure that Eclipse will launch with Java 5 and (hopefully) speed things up a bit. Double-click on the short-cut, and sure enough, we're down to about 8 seconds.</p>
+<p>The next thing I wanted to do is increase the default min and max memory settings. In c:\eclipse\eclipse.ini, you'll see</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token parameter variable">-vmargs</span>
+<span class="token parameter variable">-Xms40M</span>
+<span class="token parameter variable">-Xmx256M</span></code></pre>
+<p>I changed these to</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token parameter variable">-vmargs</span>
+<span class="token parameter variable">-Xms256m</span>
+<span class="token parameter variable">-Xmx768m</span></code></pre>
+<p>This increases the minimum memory space to 256M and the maximum to 768M. You can also do this by adding these vmargs to the shortcut target:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">C:<span class="token punctuation">\</span>eclipse<span class="token punctuation">\</span>eclipse.exe <span class="token parameter variable">-vm</span> <span class="token string">"C:\Program Files\Java\jdk1.5.0_08<span class="token entity" title="\b">\b</span>in\javaw.exe"</span> <span class="token parameter variable">-vmargs</span> <span class="token parameter variable">-Xms256M</span> <span class="token parameter variable">-Xmx768M</span></code></pre>
+<p>If you have a multi-processor computer (and I believe this includes dual-core systems, though I haven't read the docs on this), you can use some of the new VM ergonomics to self-tune garbage collection by adding this switch:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token parameter variable">-XX:+UseParallelGC</span></code></pre>
+<p>One last handy parameter is &quot;-showlocation&quot; which shows the current location of your workspace. If you have different workspaces, this is handy.</p>
+<p>If you want to read more about some JVM garbage collection (and who doesn't) here are some helpful links:</p>
+<ul>
+	<li><a href="http://java.sun.com/javase/technologies/hotspot.jsp">Java SE HotSpot at a Glance</a></li>
+	<li><a href="http://java.sun.com/j2se/1.5.0/docs/guide/vm/gc-ergonomics.html">Garbage Collector Ergonomics</a></li>
+	<li><a href="http://java.sun.com/docs/hotspot/gc5.0/gc_tuning_5.html">Tuning Garbage Collection with the 5.0 Java Virtual Machine</a></li>
+	<li><a href="http://java.sun.com/docs/performance/">Java Performance Documentation</a></li>
+	<li><a href="http://blogs.sun.com/watt/resource/jvm-options-list.html">A Collection of JVM Options</a> (check out the references at the bottom of the page)</li>
+</ul>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-08-31-postgres-on-ubuntu/">Postgres on Ubuntu</a></li><li>Next: <a href="/posts/2006-09-21-form-validation/">Form Validation</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-09-07-tweaking-eclipse/ -->
+</html>

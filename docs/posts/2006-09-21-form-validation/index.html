@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Form Validation</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-09-21">21 September 2006</time></li>
+</ul>
+
+<p>I've been playing with some form validation stuff for CF. I had been usign , but I wanted the HTML interface to act a bit more like the Flash interface, but I don't really want to use Flash. I've also been doing a lot more work with some of the DHTML libraries that AJAX has made popular, so I figured there had to be a relatively elegent way to do form validations with something like <a href="http://prototype.conio.net/%3Eprototype%3C/a%3E.%3C/p%3E%3Cp%3EI%20remembered%20seeing%20something%20on%20%3Ca%20href=">Ajaxian</a> about easy form validation and decided to give it a try. The article on <a href="http://tetlaw.id.au/view/blog/really-easy-field-validation-with-prototype/">Dexagogo</a> shows how they created a library to handle form-validations that doesn't require any other work than creating a form. This was just what I was looking for!</p>
+<p>Basically, you just need the latest files from <a href="http://script.aculo.us/">script.aclo.us</a> with the latest prototype version (the 1.5 release candidate is included in the latest script.aculo.us lib folder), and the validation library. Convienently, they're all included <a href="http://tetlaw.id.au/upload/dev/validation/validation1.5.3.zip">in the demo file on the site</a>.</p>
+<p>To use this, you really only need prototype and the validation library (script.aculo.us adds a nice effect – much like the Flash format in cfform). For me, I made these calls:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/scripts/scriptaculous/lib/prototype.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“text/javascript”</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“/scripts/validator.js”</span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  &lt;script type=“text/javascript” src=“/scripts/scriptaculous/scriptaculous.js?load=effects”><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span></code></pre>
+<p>This is slightly different than the example on their page; they load the effects.js file directly, I'm calling the library via script.aculo.us with the load parameter. This isn't really a big deal for one library, but it is convenient when you want to use several, but not all, of the libraries (e.g. scriptaculous.js?load=effects,dragdrop,slider).</p>
+<p>Anyway, to actually use this, you need to create a form with an id attribute:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>feedback<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>feedback<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#cgi.script_name#<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+  ...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></code></pre>
+<p>Now, we add some fields and use the class attribute to call the validator:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>code<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“text”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“name”</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“name”</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“required”</span> <span class="token punctuation">/></span></span>
+    Email: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“text”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“email”</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“email”</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“required</span> <span class="token attr-name">validate-email”</span> <span class="token punctuation">/></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“submit”</span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>There are 11 options for use in the validation library (this is directly off their page):</p>
+<ul>
+	<li>required (not blank)</li>
+	<li>validate-number (a valid number)</li>
+	<li>validate-digits (digits only)</li>
+	<li>validate-alpha (letters only)</li>
+	<li>validate-alphanum (only letters and numbers)</li>
+	<li>validate-date (a valid date value)</li>
+	<li>validate-email (a valid email address)</li>
+	<li>validate-url (a valid URL)</li>
+	<li>validate-date-au (a date formatted as; dd/mm/yyyy)</li>
+	<li>validate-currency-dollar (a valid dollar value)</li>
+	<li>validate-one-required (At least one textbox/radio element must be selected in a group)</li>
+</ul>
+<p>This is really nice, because if you want to allow an optional field, but validate it, you can do:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>validate-email<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+<p>There's one more piece of the pie...to call the validation library. At the bottom of your page add:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“text/javascript”</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">new</span> <span class="token class-name">Validation</span><span class="token punctuation">(</span><span class="token string">'feedback'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token literal-property property">immediate</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
+<p>The first argument is the id attribute of the form you're wanting to validate. The second tells the Validator object what to do. This particular example enables validation on each field as you leave it (which I find useful). Some of the other options are:</p>
+<ul>
+	<li>stopOnFirst (boolean): Stop on the first validation failure; default: false</li>
+	<li>onSubmit (boolean): Override the default behavior of adding an even listener to the onsubmit event (set to false if you want to make sure your onsubmit method gets called no matter what); default: true</li>
+	<li>immediate (boolean): validate when the cursor leaves the field; default: false</li>
+	<li>focusOnError (boolean): place the focus on the first field with an error; default: true</li>
+	<li>useTitles (boolean): make field validators use form element title attributes as error advice message; default: false</li>
+	<li>onFormValidate (string function): call a function when the form is validated</li>
+	<li>onElementValidate (string function): call a function when an element is validated</li>
+</ul>
+<p>What I thought was really cool was the ability to add custom validation types via an API. Say you only want folks to use capital letters for their names, you simply add a new validation type like:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+  Validation.add(
+    'validate-ucase',
+    'Please only use upper-case letters (A-Z) in this field.',
+     function(v){ return Validation.get('IsEmpty').test(v) || /^[A-Z]+$/.test(v);
+  );
+}
+</code></pre>
+<p>Want to add several? You can do that too:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“javascript”</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+  Validation<span class="token punctuation">.</span><span class="token function">addAllThese</span><span class="token punctuation">(</span>
+    <span class="token punctuation">[</span> 
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-lcase'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please only use lower-case (a-z) letters in this field'</span><span class="token punctuation">,</span>
+         <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[a-z]+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-zip'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your zip code'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\d{5})(( |-)?(\d{4}))?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-phone'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your phone number'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(([0-9]{3}-)|([0-9]{3}) ?)?[0-9]{3}-[0-9]{4}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-ssn'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check the Social Security Number. It should follow the format 999-99-9999'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^([0-9]{3}(-?)[0-9]{2}(-?)[0-9]{4})$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-ip'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check the IP address'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]).(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]).(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]).(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-uuid'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check the UUID'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{16}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-guid'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check the GUID'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[0-9a-f]{8,8}-[0-9a-f]{4,4}-[0-9a-f]{4,4}-[0-9a-f]{4,4}-[0-9a-f]{12,12}]$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-float'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please only use floating point numbers in this field'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\b[0-9]+.([0-9]+\b)?|.[0-9]+\b)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-visa'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your credit card number'</span><span class="token punctuation">,</span>
+         <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^4\d{3}-?\d{4}-?\d{4}-?\d{4}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-mastercard'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your credit card number'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^5[1-5]\d{2}-?\d{4}-?\d{4}-?\d{4}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-discovery'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your credit card number'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^6011-?\d{4}-?\d{4}-?\d{4}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-amex'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your credit card number'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^3[4,7]\d{13}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-diners'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please check your credit card number'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^3[0,6,8]\d{12}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>
+        <span class="token string">'validate-time'</span><span class="token punctuation">,</span>
+        <span class="token string">'Please only use time in this field'</span><span class="token punctuation">,</span>
+        <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'IsEmpty'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\d{1,2}[:]\d{2}([:]\d{2})?( [aApP][mM]?)?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span> 
+      <span class="token punctuation">]</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
+<p>This should be all of the normal items included in  (plus a couple extra for good measure). Now the only thing left is to make it look pretty. One of the nice things about the Flash format in  is that it color codes required fields with the different halo effects. To obtain a similar effect in the forms, we'll use style sheets instead.</p>
+<p>This is a rather light stylesheet, but it'll give you something to start with (based on the default haloGreen skin):</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+
+<span class="token selector">input.required, textarea.required</span> <span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #ffbf2b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">input.validation-failed, textarea.validation-failed</span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #ff3300<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #ff3300<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">input.validation-passed, textarea.validation-passed</span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #00cc00<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.validation-advice</span> <span class="token punctuation">{</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 5px 0<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 5px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #FF3300<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.custom-advice</span> <span class="token punctuation">{</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 5px 0<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 5px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #c8aa00<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span>bold<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span></code></pre>
+<p>I made a short example of some of the validations at <a href="http://swem.wm.edu/blogs/waynegraham/examples/validation/">http://swem.wm.edu/blogs/waynegraham/examples/validation/</a>. I have to say that I've found this to be a bit better solution (at least for my needs) than using !</div></p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-09-07-tweaking-eclipse/">Tweaking Eclipse</a></li><li>Next: <a href="/posts/2006-12-14-redhat-support-kudos/">RedHat Support Kudos</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-09-21-form-validation/ -->
+</html>

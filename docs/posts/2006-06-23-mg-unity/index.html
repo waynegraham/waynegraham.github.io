@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Unity</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>MG Unity</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2006-06-23">23 June 2006</time></li>
+</ul>
+
+<p>It's been a while since I've written on this blog...I'm attempting to keep this one on CF. Anyway, MG Unity has come out and I have to admit that I'm REALLY glad it has.</p>
+<p>I've been working on a project with five academics from four different institutions looking at the vernacular architecture of the Colonial Chesapeake to 1720 for an article in the William and Mary Quarterly for the 2007 celebration of Jamestown. The objective was to write an scholarly article that looks at everything that has been excavated and see if the arguments of past scholars still hold. Not only were the scholars looking at individual sites as an aggregate, but wanted to track changes to the structures over time (additions, fireplaces, cellars, etc.).</p>
+<p>I knew this was going to be a challenging project from the beginning, so I attempted to set the expectations early for the application development cycle. I thought it a fluke that I actually got them all to aggree on a set of important fields and tables before I started coding anything (a first for me). However, as I got into the project a bit more, requests for additional fields here, moving this data to this table, all while attempting to support constant input into the application got to be a bit more than was really feasible for a &quot;spare-time&quot; project.</p>
+<p>I had set out to use as good of coding practices as I could. Each table had its own DAO, gateway, TOs, validators, etc. However, each change to these fields made me keep mucking around in these files and the forms calling the objects. After a while of making constant changes, I fell back on some old &quot;bad&quot; practices and kind of strong-armed some of the solution with spaghetti code...and I hated myself for it because I knew that I would have to come back at a later date to fix it.</p>
+<p>About this time Joe started doing some work with Arf! And Doug Hughes started work on Reactor. I continued to code in my bad style, but since I knew what I had done, I just kept doing it.</p>
+<p>After the project members presented their paper, I set the project down for a while since my daughter had just been born. Since Joe brought out Unity, I decided now was as good a time as any to pick up the refactoring of the project.</p>
+<p>All I can say is that what I've done in half-a-day with Unity would take me three- to four-times longer my old way. The scaffolds (once I figured out how they were working) have been an absolute godsend for the rather complex relationships between phases of construction and the overall archaeological and architectural record. The Reactor syntax is so easy (especially since ColdSpring seperates all the configuration) that everything just clicks.</p>
+<p>The entire framework is just so intuitive (at least compared to my previous experiences with frameworks). The ability to not have to worry any more about building the basic web pages, forms, CRUD, and displays makes Unity a pleasure. Also, changes will be a breeze compared to what they entailed a couple of months ago, which will allow me to do some of the cool stuff I had planned with Google Maps and Google Earth to map out the locations of these archeaological/historical sites!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-04-21-google-scholar/">Google Scholar</a></li><li>Next: <a href="/posts/2006-07-21-ie-7-beta-3-in-standalone-mode/">IE 7 beta 3 in Standalone Mode</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2006-06-23-mg-unity/ -->
+</html>

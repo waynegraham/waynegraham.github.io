@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook App</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Facebook App</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-07-18">18 July 2008</time></li>
+</ul>
+
+<p>Phil and I (mostly Phil) have been working on getting the code for our Facebook application ready to be released on Google Code. Phil has done a phenomenal job in getting the code ported to FBML so we don’t have to use the lib_gd stuff any more to generate images. We also rewrote it using Smarty templates. As a brief aside, I’m not sure why I haven’t been using this for a while. It really is a great framework for the majority of what I need to do.</p>
+<p>If you’re interested, you can check out the code at <a title="Facebook Athenaeum" href="http://code.google.com/p/facebook-athenaeum">http://code.google.com/p/facebook-athenaeum</a>. There are a few more features to add in, but it does work rather nicely, and a lot faster than our previous version. The slowest thing is the asynchronous post to the MySQL server (the longest time we recorded was 111ms), but since that happens in the background, you don’t even notice.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-07-17-starting-over/">Starting Over</a></li><li>Next: <a href="/posts/2008-07-18-sourceforge-goodness/">Sourceforge Goodness</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-07-18-facebook-app/ -->
+</html>

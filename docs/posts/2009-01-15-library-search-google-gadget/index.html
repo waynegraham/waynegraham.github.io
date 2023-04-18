@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Search Google Gadget</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Library Search Google Gadget</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-01-15">15 January 2009</time></li>
+</ul>
+
+<p>I've been going through a bunch of old stuff I've written as I clean up things. There will be a rash of posts where I take code I've written in different projects to see how things work and that are potentially useful, just no implemented in anything that I may need in the future. The first one here is some code for a Google gadget I wrote to search our online catalog a few years ago when the API was released.</p>
+<p>If you're not one of the of the cool kids who uses <a href="http://www.google.com/ig">iGoogle</a>, you'll need to set yourself up to use this code. I just looked at the <a href="http://code.google.com/apis/gadgets/docs/dev_guide.html">developer's guide</a>, and it seems a bit more fleshed out than it was when I first took a whack at the code :) The really cool thing about these gadgets is that they are essentailly just an XML file with some JavaScript/HTML thrown in.</p>
+<p>I thought it might be a nice feature to just provide a search box for people to launch a catalog search. This is just a simple HTML form.</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”_parent”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”searchform”</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”http://lion.wm.edu/uhtbin/cgisirsi/0/0/057/5”</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”searchform”</span><span class="token punctuation">></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”searchInput”</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token value css language-css"><span class="token property">”width</span><span class="token punctuation">:</span></span></span></span> <span class="token attr-name">100%;”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”searchdata1”</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”text”</span> <span class="token attr-name">accesskey</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”f”</span> <span class="token punctuation">/></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”library”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”library”</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”hidden”</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”SWEM”</span> <span class="token punctuation">/></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”user_id”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”user_id”</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”hidden”</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”SWEPUB”</span> <span class="token punctuation">/></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”sourceid”</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”sourceid”</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”hidden”</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>”gadget”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></code></pre>
+<p>This is just HTML code that you would use on any search page. Nothing fancy. Now on to creating the gadget..</p>
+<p>There are two parts to the XML code for the spec. The root node (Module) has two elements, ModulePrefs and Content. The ModulePrefs element is relatively straight-forward:</p>
+<pre class="language-xml" tabindex="0"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ModulePrefs</span>
+  <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Swem Catalog Search<span class="token punctuation">"</span></span>
+  <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>40<span class="token punctuation">"</span></span>
+  <span class="token attr-name">description</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Search Swem's online catalog from iGoogle<span class="token punctuation">"</span></span>
+  <span class="token attr-name">author</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Wayne Graham<span class="token punctuation">"</span></span>
+  <span class="token attr-name">author_email</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dontspamme@gmail.com<span class="token punctuation">"</span></span> <span class="token attr-name">screenshot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span>
+  <span class="token attr-name">author_location</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Williamsburg, Virginia<span class="token punctuation">"</span></span>
+  <span class="token attr-name">title_url</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://swem.wm.edu<span class="token punctuation">"</span></span>
+  <span class="token attr-name">Require</span> <span class="token attr-name">feature</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>analytics<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+<p>The attributes of the ModulePrefs element (title, height, description, etc.) should be pretty self explanitory. I wanted to be able to track usage of the gadget, so I eneabled Google analytics for the widget by requiring the analytics feature. Now for the meat.</p>
+<p>What I did was write a short CSS definition and some JavaScript to actually display a form in the Content element of the Module.</p>
+<pre class="language-xml" tabindex="0"><code class="language-xml">
+
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Content</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token cdata">&lt;![CDATA[
+&lt;style>
+    #subLibrary {
+        font-family:arial, sans-serif;
+        font-size:10px;
+        color:#676767;
+    }
+    #link {
+        font-family:Garamond, serif;
+        font-size:32px;
+        color:black;
+        text-decoration:none;
+    }
+    #searchGoButton {
+        font-weight:bold;
+    }
+&lt;/style>
+&lt;script>
+function displaySearchBar (prefs) {
+    var lang = prefs.getString("mylang");
+
+    if (lang == "") {
+        lang = prefs.getString(".lang");
+    }
+
+    var html =
+        '&lt;form target="_parent" name="searchform" action="http://lion.wm.edu/uhtbin/cgisirsi/0/0/0/57/5" id="searchform">' +
+        '&lt;table style="width:100%">' +
+        '&lt;tr>' +
+        '&lt;td style="padding-bottom:4px">' +
+        '&lt;a target="_parent" id="link" href="http://lion.wm.edu/uhtbin/webcat">Catalog&lt;/a>' +
+        '&lt;span style="vertical-align: sub;">Swem&lt;/span>' +
+        '&lt;/td>' +
+        '&lt;td width=100%>' +
+        '&lt;input id="searchInput" style="width:100%" name="searchdata1" type="text" accesskey="f" value="" />' +
+        '&lt;input id="library" name="library" type="hidden" value="SWEM" />' +
+        '&lt;input id="user_id" name="user_id" type="hidden" value="SWEPUB" />' +
+        '&lt;input id="sourceid" name="sourceid" type="hidden" value="gadget" />' +
+        '&lt;/td>' +
+        '&lt;td>' +
+        '&lt;input type="submit" name="go" id="searchGoButton" value="Search" />' +
+        '&lt;/td>' +
+        '&lt;td>' +
+        '&amp;amp;amp;amp;nbsp;' +
+        '&lt;/td>' +
+        '&lt;/tr>' +
+        '&lt;/table>'
+        '&lt;form>';
+    document.write(html);
+}
+
+displaySearchBar(new _IG_Prefs(__MODULE_ID__));
+_IG_Analytics("analytics-id", "/google-gadget");
+&lt;/script>
+]]></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Content</span><span class="token punctuation">></span></span></code></pre>
+<p>Once you're done, you can test everything with the directions on the <a href="http://code.google.com/apis/gadgets/docs/tools.html">Developer Tools page</a>. There are even really nice resources to tell you how to <a href="http://code.google.com/apis/gadgets/docs/tools.html#Host">host this on Google Code</a>.</p>
+<p>As a finished product, this is what the gadget looks like in iGoogle:</p>
+<img class="alignnone size-medium wp-image-235" title="gadget" src="http://www.liquidfoot.com/wp-content/uploads/2009/01/gadget-300x46.png" alt="gadget" width="300" height="46" />
+<p>For the folks that use iGoogle as their home page, this can be valuable tool for them. Next up, I need to brush off my code for generating Sherlock/Opensearch extensions for Firefox and IE...</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-01-06-what-is-a-database/">What Is a Database?</a></li><li>Next: <a href="/posts/2009-01-15-sherlockopensearch-plugins-for-libraries/">Sherlock/OpenSearch Plugins for Libraries</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-01-15-library-search-google-gadget/ -->
+</html>

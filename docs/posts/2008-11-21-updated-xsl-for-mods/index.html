@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updated XSL for MODS</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Updated XSL for MODS</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-11-21">21 November 2008</time></li>
+</ul>
+
+<p>David noticed that not all the authors were being inserted into the database. I looked at it and it turns out that an author can have an arbitrary number of given names to handle the inclusion of middle names. I had thought I was only pulling the first node, but it turns out I wasn't and the SQL to insert the authors with was erroring out so there were a lot of citations without authors.</p>
+<p>I went back in and modified the XSLT that was processing the given names to now read:</p>
+<pre class="language-xml" tabindex="0"><code class="language-xml">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>variable</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ref_id<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>value-of</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>@ID<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsl:</span>variable</span><span class="token punctuation">></span></span>
+...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>for-each</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  INSERT INTO authors (id, ref_id, given, family, role)
+  VALUES(
+      UUID(),
+      <span class="token comment">&lt;!--(SELECT id FROM citations ORDER BY added desc limit 1),--></span>
+      '<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>value-of</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>$ref_id<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>',
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>for-each</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          '<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>for-each</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>namePart[@type='given']<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>value-of</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>text</span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsl:</span>text</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsl:</span>for-each</span><span class="token punctuation">></span></span>',
+  
+          '<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>value-of</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>namePart[@type='family']<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>',
+          '<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsl:</span>value-of</span> <span class="token attr-name">select</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>role/roleTerm<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>'
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsl:</span>for-each</span><span class="token punctuation">></span></span>
+      );
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsl:</span>for-each</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>It looked like the SQL to grab the last item didn't always return a record for whatever reason (a locking issue?). Since there was already a key in the field, I just switched over to use that in the inserts. Still need to go through and regularize the fields so MySQL isn't attempting to pull a foreign key index on a variable width field, but this is an update to yesterday's code.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-11-20-gmail-ninjas/">GMail Ninjas</a></li><li>Next: <a href="/posts/2008-12-17-it-works/">It Works!</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-11-21-updated-xsl-for-mods/ -->
+</html>

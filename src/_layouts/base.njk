@@ -2,7 +2,12 @@
 <html lang="{{ metadata.language}}">
     {% include 'head.njk' %}
 <body>
-{{ content | safe }}
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    {% include 'header.njk' %}
+    <main id="skip">
+        {{ content | safe }}
+    </main>
 </body>
 <footer></footer>
 <!-- Current page: {{ page.url | htmlBaseUrl }} -->

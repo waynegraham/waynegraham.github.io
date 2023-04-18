@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subversion with mod_security</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Subversion with mod_security</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2007-03-06">06 March 2007</time></li>
+</ul>
+
+<p>I ran into a bit of an issue while setting up a new subversion server today. On that box we're running <a href="http://www.modsecurity.org/">mod_security</a> on all vhosts to add another layer of security to our web apps. I got everything configured with the the security, but when I was testing, I kept getting 403 errors when I attempted to get the files in anything other than a web browser.</p>
+<p>After scratching my head for a while, I looked at the Apache logs, and noticed that mod_rewrite was causing the issue with lines like this:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token punctuation">[</span>Tue Mar 06 <span class="token number">13</span>:46:46 <span class="token number">2007</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>error<span class="token punctuation">]</span> <span class="token punctuation">[</span>client xxx.xxx.xxx.xxx<span class="token punctuation">]</span> mod_security: Access denied with code <span class="token number">403</span>. Pattern match ”<span class="token operator">!</span><span class="token punctuation">(</span>^$<span class="token operator">|</span>^application/x-www-form-urlencoded$<span class="token operator">|</span>^multipart/form-data<span class="token punctuation">)</span>” at HEADER<span class="token punctuation">(</span>“Content-Type”<span class="token punctuation">)</span> <span class="token punctuation">[</span>severity “EMERGENCY”<span class="token punctuation">]</span> <span class="token punctuation">[</span>hostname “svn.example.com”<span class="token punctuation">]</span> <span class="token punctuation">[</span>uri “/test”<span class="token punctuation">]</span></code></pre>
+<p>I stumbled on <a href="http://blog.charlvn.za.net/2006/09/subversion-modsecurity.html">Charl van Niekerk's</a> entry on this. One of the comments suggested that the following is the bare minimum to run mod_security on a vhost running subversion:</p>
+<pre><code>SecFilterSelective REQUEST_METHOD ”^(PROPFIND|PROPPATCH)$” allow
+SecFilterSelective REQUEST_METHOD ”^(REPORT|OPTIONS)$” allow
+SecFilterSelective REQUEST_METHOD ”^(MKACTIVITY|CHECKOUT)$” allow
+SecFilterSelective REQUEST_METHOD ”^(PUT|DELETE|MERGE)$” allow
+</code></pre>
+<p>This should be in the first directives in your mod_security call:</p>
+<pre><code>&lt;IfModule mod_security.c&gt;
+  # Enable ModSecurity
+  SecFilterEngine On
+
+  SecFilterSelective REQUEST_METHOD ”^(PROPFIND|PROPPATCH)$” allow
+  SecFilterSelective REQUEST_METHOD ”^(REPORT|OPTIONS)$” allow
+  SecFilterSelective REQUEST_METHOD ”^(MKACTIVITY|CHECKOUT)$” allow
+  SecFilterSelective REQUEST_METHOD ”^(PUT|DELETE|MERGE)$” allow
+&lt;/IfModule&gt;
+</code></pre>
+<p>If you run a Subversion repository and have run into this issue, these security filters should help!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2007-02-02-ms-access-via-jdbc/">MS Access via JDBC</a></li><li>Next: <a href="/posts/2007-04-30-her-royal-majesty/">Her Royal Majesty</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2007-03-06-subversion-with-mod_security/ -->
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Access via JDBC</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>MS Access via JDBC</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2007-02-02">02 February 2007</time></li>
+</ul>
+
+<p>We recently made the move from an IIS Windows web server to an Apache *nix based web server as part of our efforts to consolidate our library's server infrastructure. And for reasons I won't expound upon, we had one MS Access DSN that didn't get migrated to MSSQL and that needed to be used still. Since ColdFusion uses a Windows only driver for MS Access, I needed to figure out a way around this. I found a couple of JDBC drivers for Access (Easysoft's <a href="http://www.easysoft.com/products/data_access/jdbc_odbc_bridge/index.html">JDBC-ODBC Bridge</a> and HXTT's <a href="http://www.hxtt.com/access.html">Access Pure Java JDBC Drivers</a>), but these seemed to be a bit on the expensive side for the short amount of time that I'd need to keep Access in production.</p>
+<p>I did notice on Easysoft's website that they were using the JdbcOdbc bridge, so after a little bit more digging, I found the syntax to use configure ColdFusion to use MS Access through the JdbcOdbc Bridge; the JDBC URL is</p>
+<pre><code>jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=/path/to/datasource.mdb;DriverID22;
+</code></pre>
+<p>and the Driver Class</p>
+<pre><code>sun.jdbc.odbc.JdbcOdbcDriver
+</code></pre>
+<p>For the very basic inserting of data from a seldom-used web form into a single table, this band aid fix has been doing pretty good!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2006-12-14-redhat-support-kudos/">RedHat Support Kudos</a></li><li>Next: <a href="/posts/2007-03-06-subversion-with-mod_security/">Subversion with mod_security</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2007-02-02-ms-access-via-jdbc/ -->
+</html>

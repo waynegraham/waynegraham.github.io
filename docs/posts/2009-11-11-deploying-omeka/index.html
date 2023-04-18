@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Omeka</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Deploying Omeka</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-11-11">11 November 2009</time></li>
+</ul>
+
+<p>At work, we've been doing a lot of development using the Omeka framework. We've implemented plugins to enable the software to interact with our Fedora repository, work with geo-rectified images, build in a search interface with Solr, and another one (Adam's not quite ready to announce this one yet). However, as good as the project is, one thing I've noticed is that the ways to deploy the software are a bit heavy on the user knowing what they're doing. They've done a good job of guiding users through the setup after all the pieces are in place, but I'm a big fan of having automated ways of deploying software.</p>
+<p>One of my favorite deployment tools is Capistrano. I love being able to check changes to the software to our Subversion server, and from my local machine type a simple command and update the remote source. We actually have been using this for several of our instances on our staging servers. The secret for deploying a PHP project with Capistrano is with <a href="http://github.com/leehambley/railsless-deploy">Lee Hambley's railsless-deploy gem</a>. The first time you set one of these up, it's a real pain, but you can quickly develop a template for deploying these.</p>
+<p>I've been paying attention to some of the musings on Twitter regarding setting Omeka up. One of the big stumbling blocks is with MySQL. I wrote a quick helper script, and in one of my &quot;how can I make this more beneficial&quot; moments, I wrote a spec file for generating an rpm to install it.</p>
+<p>I hadn't worked on packaging in Linux for a while and forgot how painful it could be. Compounding my efforts was the fact that I was running Fedora Core to build it from VirtualBox. Normally this runs fine, but the fact that I was using rpmbuild was causing VirtualBox to eat up most of my available memory (I only have 4GB). It was just slow going because the rpmlint was taking so long.</p>
+<p>Anyway, I have a functional rpm that can how be installed. I haven't tested it much (read that at all), but I believe I've worked the bugs out of the build process. The idea here is to deploy it in a slightly different manner than you get out of the box. The RPM version creates /etc/omeka where it stores its database configuration and then defaults to placing the directory tree in /var/www/omeka. This helps in separating the configuration from the actual web application, but I'm debating with myself if everything but the archive folder should go into /usr/local/omeka.</p>
+<p>Anyway, we'll have an update soon, along with more code!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-08-30-rails-and-gis/">Rails and GIS</a></li><li>Next: <a href="/posts/2009-11-17-map-hacking/">Map Hacking</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-11-11-deploying-omeka/ -->
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rdesktop and Tcl/tk</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>rdesktop and Tcl/tk</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-01-16">16 January 2009</time></li>
+</ul>
+
+<p>This is something I did a few years ago and has been very useful. I'm a *nix admin that occasionally needs to log on to a Windows server. I used rdesktop for a long time to do this. I wanted, though, a nice GUI that would allow me to pick which server I wanted (and an excuse to play a bit with Tcl). This is the script I came up with to do just this:</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby"><span class="token comment">#! /usr/bin/wish</span>
+
+wm title <span class="token punctuation">.</span> <span class="token string-literal"><span class="token string">"Remote Desktop Launcher"</span></span>
+
+frame <span class="token punctuation">.</span>top <span class="token operator">-</span>borderwidth <span class="token number">10</span>
+pack <span class="token punctuation">.</span>top <span class="token operator">-</span>side top <span class="token operator">-</span>fill x
+
+button <span class="token punctuation">.</span>top<span class="token punctuation">.</span>quit <span class="token operator">-</span>text Quit <span class="token operator">-</span>command exit
+set but <span class="token punctuation">[</span>button <span class="token punctuation">.</span>top<span class="token punctuation">.</span>run <span class="token operator">-</span>text <span class="token string-literal"><span class="token string">"Launch"</span></span> <span class="token operator">-</span>command Run<span class="token punctuation">]</span>
+pack <span class="token punctuation">.</span>top<span class="token punctuation">.</span>quit <span class="token punctuation">.</span>top<span class="token punctuation">.</span>run <span class="token operator">-</span>side right
+
+label <span class="token punctuation">.</span>top<span class="token punctuation">.</span>l <span class="token operator">-</span>text Server<span class="token operator">:</span> <span class="token operator">-</span>padx <span class="token number">0</span>
+entry <span class="token punctuation">.</span>top<span class="token punctuation">.</span>cmd <span class="token operator">-</span>width <span class="token number">20</span> <span class="token operator">-</span>relief sunken <span class="token operator">-</span>textvariable server
+pack <span class="token punctuation">.</span>top<span class="token punctuation">.</span>l <span class="token operator">-</span>side left
+pack <span class="token punctuation">.</span>top<span class="token punctuation">.</span>cmd <span class="token operator">-</span>side left <span class="token operator">-</span>fill x <span class="token operator">-</span>expand <span class="token boolean">true</span>
+
+bind <span class="token punctuation">.</span>top<span class="token punctuation">.</span>cmd <span class="token operator">&amp;</span>amp<span class="token operator">&lt;</span>Return<span class="token operator">&amp;</span>amp<span class="token operator">></span> Run
+focus <span class="token punctuation">.</span>top<span class="token punctuation">.</span>cmd
+
+menubutton <span class="token punctuation">.</span>mb <span class="token operator">-</span>text Server <span class="token operator">-</span>menu <span class="token punctuation">.</span>mb<span class="token punctuation">.</span>menu
+pack <span class="token punctuation">.</span>mb <span class="token operator">-</span>padx <span class="token number">10</span> <span class="token operator">-</span>pady <span class="token number">10</span>
+
+set m <span class="token punctuation">[</span>menu <span class="token punctuation">.</span>mb<span class="token punctuation">.</span>menu <span class="token operator">-</span>tearoff <span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token variable">$m</span> add radio <span class="token operator">-</span>label server1 <span class="token operator">-</span>variable server <span class="token operator">-</span>value server1<span class="token punctuation">.</span>address<span class="token punctuation">.</span>edu <span class="token operator">-</span>command Run
+<span class="token variable">$m</span> add radio <span class="token operator">-</span>label server2 <span class="token operator">-</span>variable server <span class="token operator">-</span>value server2<span class="token punctuation">.</span>address<span class="token punctuation">.</span>edu <span class="token operator">-</span>command Run
+<span class="token variable">$m</span> add radio <span class="token operator">-</span>label server3 <span class="token operator">-</span>variable server <span class="token operator">-</span>value server3<span class="token punctuation">.</span>address<span class="token punctuation">.</span>edu <span class="token operator">-</span>command Run
+<span class="token variable">$m</span> add radio <span class="token operator">-</span>label server4 <span class="token operator">-</span>variable server <span class="token operator">-</span>value server4<span class="token punctuation">.</span>address<span class="token punctuation">.</span>edu <span class="token operator">-</span>command Run
+<span class="token variable">$m</span> add radio <span class="token operator">-</span>label server5 <span class="token operator">-</span>variable server <span class="token operator">-</span>value server5<span class="token punctuation">.</span>address<span class="token punctuation">.</span>edu <span class="token operator">-</span>command Run
+
+proc Run <span class="token punctuation">{</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    global server
+    exec rdesktop <span class="token operator">-</span>u <span class="token operator">&amp;</span>amp<span class="token operator">&lt;</span>user_name<span class="token operator">&amp;</span>amp<span class="token operator">></span> <span class="token operator">-</span>p <span class="token operator">&amp;</span>amp<span class="token operator">&lt;</span>password<span class="token operator">&amp;</span>amp<span class="token operator">></span> <span class="token operator">-</span>g <span class="token number">1280</span>x800 <span class="token operator">-</span>x b <span class="token variable">$server</span>
+<span class="token punctuation">}</span></code></pre>
+<p>All you need to do is plugin "real" values for the server and addresses. You can also auto-login by giving values for the username and password (may also want to change the geometry of the window unless you have a big screen).</p>
+<p><a href="http://www.liquidfoot.com/wp-content/uploads/2009/01/rdesktop.png"><img class="alignnone size-medium wp-image-246" title="rdesktop" src="http://www.liquidfoot.com/wp-content/uploads/2009/01/rdesktop-300x202.png" alt="rdesktop" width="300" height="202" /></a></p>
+<p>I also have bash aliases for these, but that's a different post...</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-01-15-sherlockopensearch-plugins-for-libraries/">Sherlock/OpenSearch Plugins for Libraries</a></li><li>Next: <a href="/posts/2009-01-25-because-im-a-geek/">Because I&#39;m a Geek</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-01-16-rdesktop-and-tcltk/ -->
+</html>

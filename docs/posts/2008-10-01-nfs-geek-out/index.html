@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFS Geek Out</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>NFS Geek Out</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-10-01">01 October 2008</time></li>
+</ul>
+
+<p>And that's not Need for Speed :)</p>
+<p>A while back I got a couple of Sun Thumpers (24TB each) to help out with our storage needs in the library. I've gotten to the point to deploy them. I have to admit I really dig the Solaris admin tools (web based ILOM) and the ZFS configuration tools.</p>
+<p>The idea for the first Thumper is to make that the primary storage for of content for our institutional repository (we're running DSpace). The last couple of days I've been getting down to a really geeky level in systems administration. I created an NFS share, but the question was on how to mount it. We use nfs3 in the integrated graphics labs to mount the high performance computing clusters, so I did this for DSpace and added an fstab entry</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token operator">&lt;</span>server<span class="token operator">></span>:/dspace /dspace_nfs nfs rw,nosuid,hard,intr,rsize<span class="token operator">=</span><span class="token number">32768</span>,wsize<span class="token operator">=</span><span class="token number">32768</span>,tcp <span class="token number">0</span> <span class="token number">0</span></code></pre>
+<p>I then ran some test to see what kind of throughput I could get.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">time</span> <span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>/dev/zero <span class="token assign-left variable">of</span><span class="token operator">=</span>/dspace_nfs/dspace/testfile <span class="token assign-left variable">bs</span><span class="token operator">=</span><span class="token number">16</span> <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">16384</span></code></pre>
+<p>I got a result of</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.088866</span> seconds, <span class="token number">2.9</span> MB/s</code></pre>
+<p>Then, just to compare it against normal disk I/O, I did the same on the local hard drive</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">time</span> <span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>dev/zero <span class="token assign-left variable">of</span><span class="token operator">=~</span>/testfile <span class="token assign-left variable">bs</span><span class="token operator">=</span><span class="token number">16</span> <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">16384</span></code></pre>
+<p>This was quite a bit faster (as you probably would guess)</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.041865</span> seconds, <span class="token number">6.3</span> MB/s</code></pre>
+<p>To test the read speed, I took the same file and brought it back.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">time</span> <span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>/dspace_nfs/dspace/testfile <span class="token assign-left variable">of</span><span class="token operator">=</span>/dev/null <span class="token assign-left variable">bs</span><span class="token operator">=</span><span class="token number">16</span></code></pre>
+<p>On the NFS mount I got</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.017822</span> seconds, <span class="token number">14.7</span> MB/s</code></pre>
+<p>and on the local file system I got</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.015867</span> seconds, <span class="token number">16.5</span> MB/s</code></pre>
+<p>I was kind of surprised at how close the reads were. It's not a huge file it's moving (our larger files are around 350MB), but it's reasonably consistence with an arbitrary file size of the PDFs we have in the collection.</p>
+<p>I was corresponding with a colleague who's been doing this way longer than I have and he suggested using a larger blocksize and writing/reading some files larger than the RAM size. I also wanted to test against NFS4 (I was using NFS3 in the fstab entry).</p>
+<p>To do this, I just created a mount point and mounted the filesystem.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">mkdir</span> /mnt/nfs4
+<span class="token function">mount</span> <span class="token parameter variable">-t</span> nfs4 <span class="token operator">&lt;</span>server<span class="token operator">></span>:/dspace /mnt/nfs4</code></pre>
+<p>I ran the same test on the new mount and got a result of</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.055023</span> seconds, <span class="token number">4.8</span> MB/s</code></pre>
+<p>and for the read</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token number">262144</span> bytes <span class="token punctuation">(</span><span class="token number">262</span> kB<span class="token punctuation">)</span> copied, <span class="token number">0.014205</span> seconds, <span class="token number">18.5</span> MB/s</code></pre>
+<p>So, it looks like NFSv4 is much improved over NFSv3!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-09-26-down-with-reuters/">Down with Reuters!</a></li><li>Next: <a href="/posts/2008-11-06-open-search/">Open Search</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-10-01-nfs-geek-out/ -->
+</html>

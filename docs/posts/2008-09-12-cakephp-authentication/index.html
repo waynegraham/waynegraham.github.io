@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CakePHP Authentication</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>CakePHP Authentication</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2008-09-12">12 September 2008</time></li>
+</ul>
+
+<p>I found some great tutorials on implementing ACL authentication in CakePHP. However, for the longest time I couldn't get the actual example code to work. The way to authenticate everything in your application is to create an app_controller.php file in your app folder (see <a href="http://book.cakephp.org/view/643/Preparing-to-Add-Auth">Preparing to Add Auth</a>). In every other controller I've created in CakePHP, you follow this convention:</p>
+<pre class="language-php" tabindex="0"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">FooBarsController</span> <span class="token keyword">extends</span> <span class="token class-name">AppController</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">var</span> <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'FooBars'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token delimiter important">?></span></span></code></pre>
+<p>I followed the same convention (didn't read the docs very closely) and just got all kinds of errors. After digging a bit deeper, turns out AppController extends Controller...apparently it can't extend itself :)</p>
+<p>Hopefully this'll save some time for someone, but the full controller for the example in the cookbook for the app_controller.php is this:</p>
+<pre class="language-php" tabindex="0"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">AppController</span> <span class="token keyword">extends</span> <span class="token class-name">Controller</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> <span class="token variable">$components</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Auth'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'Acl'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function-definition function">beforeFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//Configure AuthComponent</span>
+    <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">Auth</span><span class="token operator">-></span><span class="token property">authorize</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'actions'</span><span class="token punctuation">;</span>
+    <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">Auth</span><span class="token operator">-></span><span class="token property">loginAction</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'controller'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'users'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'action'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'login'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">Auth</span><span class="token operator">-></span><span class="token property">logoutRedirect</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'controller'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'users'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'action'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'login'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">Auth</span><span class="token operator">-></span><span class="token property">loginRedirect</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'controller'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'posts'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'action'</span> <span class="token operator">=></span> <span class="token string single-quoted-string">'add'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter important">?></span></span></code></pre>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2008-09-11-virtualbox-20/">Virtualbox 2.0</a></li><li>Next: <a href="/posts/2008-09-15-enough-is-enough/">Enough is Enough!</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2008-09-12-cakephp-authentication/ -->
+</html>

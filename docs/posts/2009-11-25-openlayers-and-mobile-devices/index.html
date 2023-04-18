@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Openlayers and Mobile Devices</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Openlayers and Mobile Devices</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2009-11-25">25 November 2009</time></li>
+</ul>
+
+<p>After some really good conversations last week at the Institute on Enabling Geospatial Scholarship about mobile devices and mapping as an interpretive device, I mocked up a quick page to see how <a href="http://openlayers.org/">OpenLayers</a> looked on the Safari mobile browser. The theory to test out here was that you could pretty easily pull up your current location and plot your (approximate) location on a historic map (or any map for that matter) without having to install an application (like <a href="http://emergencestudios.com/historicearth/">Old Map App</a>). There are various hurdles in higher education to actually releasing software application through vendors like Apple's App Store (restrictions on individual employees entering into contractual agreements), so we thought we'd explore using the browser to provide some of this functionality to users.</p>
+<p>We have a few historic maps from our McGregor collection available through our <a href="http://geoserver.org">Geoserver</a> installation, so I looked up their layer ids and manually added them into a page with OpenLayers. Nothing fancy here, just a test to see what it looks like.</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">var</span> lat<span class="token punctuation">,</span> long layer<span class="token punctuation">;</span>
+<span class="token keyword">var</span> zoom <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> lat<span class="token punctuation">,</span> lon<span class="token punctuation">,</span> layer<span class="token punctuation">;</span>
+ <span class="token keyword">var</span> zoom <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+ map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span><span class="token string">'map'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addControl</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Control<span class="token punctuation">.</span>LayerSwitcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ layer1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>WMS</span><span class="token punctuation">(</span><span class="token string">"Map of the Southern States"</span><span class="token punctuation">,</span>
+ <span class="token string">"http://lat.lib.virginia.edu:8080/geoserver/gwc/service/wms"</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">layers</span><span class="token operator">:</span> <span class="token string">"McGregor:000003056_00011"</span><span class="token punctuation">}</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span>
+ layer2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>WMS</span><span class="token punctuation">(</span><span class="token string">"Nova Virginae tabula"</span><span class="token punctuation">,</span>
+ <span class="token string">"http://lat.lib.virginia.edu:8080/geoserver/gwc/service/wms"</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">layers</span><span class="token operator">:</span> <span class="token string">"McGregor:000003482_00011"</span><span class="token punctuation">}</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span>
+ layer3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>WMS</span><span class="token punctuation">(</span><span class="token string">"A map of the most inhabited part of Virginia"</span><span class="token punctuation">,</span>
+ <span class="token string">"http://lat.lib.virginia.edu:8080/geoserver/gwc/service/wms"</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">layers</span><span class="token operator">:</span> <span class="token string">"McGregor:000003012_st1"</span><span class="token punctuation">}</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span>
+ layer4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>WMS</span><span class="token punctuation">(</span><span class="token string">"Carte de la campagne en Virginie du Major General Mis. de la Fayette"</span><span class="token punctuation">,</span>
+ <span class="token string">"http://lat.lib.virginia.edu:8080/geoserver/gwc/service/wms"</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">layers</span><span class="token operator">:</span> <span class="token string">"McGregor:000003013_st1"</span><span class="token punctuation">}</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span>
+ layer5 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>WMS</span><span class="token punctuation">(</span><span class="token string">"Carte de la campagne en Virginie du Major General Mis. de la Fayette"</span><span class="token punctuation">,</span>
+ <span class="token string">"http://lat.lib.virginia.edu:8080/geoserver/gwc/service/wms"</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">layers</span><span class="token operator">:</span> <span class="token string">"McGregor:000003019_00011"</span><span class="token punctuation">}</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>layer1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>layer2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>layer3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>layer4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>layer5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>geolocation<span class="token punctuation">)</span><span class="token punctuation">{</span>
+ navigator<span class="token punctuation">.</span>geolocation<span class="token punctuation">.</span><span class="token function">getCurrentPosition</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">position</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ lat <span class="token operator">=</span> position<span class="token punctuation">.</span>coords<span class="token punctuation">.</span>latitude<span class="token punctuation">;</span>
+ lon <span class="token operator">=</span> position<span class="token punctuation">.</span>coords<span class="token punctuation">.</span>longitude<span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">setCenter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>LonLat</span><span class="token punctuation">(</span>lon<span class="token punctuation">,</span> lat<span class="token punctuation">)</span><span class="token punctuation">,</span> zoom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token keyword">var</span> vectorLayer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Layer<span class="token punctuation">.</span>Vector</span><span class="token punctuation">(</span><span class="token string">"Overlay"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">var</span> feature <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Feature<span class="token punctuation">.</span>Vector</span><span class="token punctuation">(</span>
+ <span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Geometry<span class="token punctuation">.</span>Point</span><span class="token punctuation">(</span>lon<span class="token punctuation">,</span> lat<span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">some</span><span class="token operator">:</span><span class="token string">'data'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+ <span class="token punctuation">{</span><span class="token literal-property property">externalGraphic</span><span class="token operator">:</span> <span class="token string">'http://geocoder.ca/marker.png'</span><span class="token punctuation">,</span> <span class="token literal-property property">graphicHeight</span><span class="token operator">:</span> <span class="token number">64</span><span class="token punctuation">,</span> <span class="token literal-property property">graphicWidth</span><span class="token operator">:</span> <span class="token number">48</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ vectorLayer<span class="token punctuation">.</span><span class="token function">addFeatures</span><span class="token punctuation">(</span>feature<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span>vectorLayer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+map<span class="token punctuation">.</span><span class="token function">addControl</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OpenLayers<span class="token punctuation">.</span>Control<span class="token punctuation">.</span>PanZoomBar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>This actually worked surprisingly well the first time I launched it. With Firefox 3.5 I tested it on my laptop. At first I wasn't using the <a href="http://geoserver.org/display/GEOSDOC/5.+GWC+-+GeoWebCache">geowebcache</a> we had set up, so it was a bit slow. I changed to the geowebcache WMS service and things in the browser were noticeably faster.</p>
+<p>At lunch, I handed an iPhone to <a href="http://iconocla.st/">Schuyler Erle</a> who's first instinct was to try to drag things around and zoom-in and out. Well, there was a fail as the controls you normally use in OpenLayers were far too small to actually be useful and it just didn't feel right.</p>
+<p>I then attempted to add in a touchHandler function to help with the interactions from the user. I found Ross Boucher's post &quot;<a title="Permanent Link: iPhone Touch Events in JavaScript" rel="bookmark" href="http://rossboucher.com/2008/08/19/iphone-touch-events-in-javascript/">iPhone Touch Events in JavaScript</a>&quot; and used his code to get the sliding working:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">touchHandler</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   <span class="token keyword">var</span> touches <span class="token operator">=</span> event<span class="token punctuation">.</span>changedTouches<span class="token punctuation">,</span>
+   first <span class="token operator">=</span> touches<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   type <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">switch</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+   <span class="token punctuation">{</span>
+     <span class="token keyword">case</span> <span class="token string">"touchstart"</span><span class="token operator">:</span> type <span class="token operator">=</span> <span class="token string">"mousedown"</span><span class="token punctuation">;</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token string">"touchmove"</span><span class="token operator">:</span><span class="token operator">&amp;</span>nbsp<span class="token punctuation">;</span> type<span class="token operator">=</span><span class="token string">"mousemove"</span><span class="token punctuation">;</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token string">"touchend"</span><span class="token operator">:</span><span class="token operator">&amp;</span>nbsp<span class="token punctuation">;</span><span class="token operator">&amp;</span>nbsp<span class="token punctuation">;</span> type<span class="token operator">=</span><span class="token string">"mouseup"</span><span class="token punctuation">;</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">default</span><span class="token operator">:</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment">// initMouseEvent(type, canBubble, cancelable, view, clickCount,</span>
+ <span class="token comment">// screenX, screenY, clientX, clientY, ctrlKey,</span>
+ <span class="token comment">// altKey, shiftKey, metaKey, button, relatedTarget);</span>
+
+    <span class="token keyword">var</span> simulatedEvent <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createEvent</span><span class="token punctuation">(</span><span class="token string">"MouseEvent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    simulatedEvent<span class="token punctuation">.</span><span class="token function">initMouseEvent</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> window<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    first<span class="token punctuation">.</span>screenX<span class="token punctuation">,</span> first<span class="token punctuation">.</span>screenY<span class="token punctuation">,</span>
+    first<span class="token punctuation">.</span>clientX<span class="token punctuation">,</span> first<span class="token punctuation">.</span>clientY<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token comment">/*left*/</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    first<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">dispatchEvent</span><span class="token punctuation">(</span>simulatedEvent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    event<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"touchstart"</span><span class="token punctuation">,</span> touchHandler<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"touchmove"</span><span class="token punctuation">,</span> touchHandler<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"touchend"</span><span class="token punctuation">,</span> touchHandler<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"touchcancel"</span><span class="token punctuation">,</span> touchHandler<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Now the scrolling worked, but you could no longer zoom into the map (and we want real zoom, not just making the image bigger). I haven't found a fix for this yet, but I have to say that this is a kind of cool way of interacting with these materials.</p>
+<p>Something I need to talk with Joe about next week making your location a query to <a href="http://geonetwork-opensource.org/">Geonetwork</a> and then using the top n maps returned to build this interface. It's a little like a coverage map for your current location.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2009-11-20-more-on-omeka-packaging/">More on Omeka Packaging</a></li><li>Next: <a href="/posts/2010-04-17-zotero-ruby-fun/">Zotero + Ruby == Fun!</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2009-11-25-openlayers-and-mobile-devices/ -->
+</html>

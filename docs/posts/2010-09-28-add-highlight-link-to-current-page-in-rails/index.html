@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add highlight link to current page in Rails</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Add highlight link to current page in Rails</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2010-09-28">28 September 2010</time></li>
+</ul>
+
+<p>I recently wanted to add a highlight link to a navigational element if the navigation was on the current page. I thought this would be pretty straight forward with Rails' link_to helper. Turns out it was a little less-than-intuitive. So, to remind myself (and show others) how to do this, I'm providing the following:</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby"><span class="token operator">&lt;</span>ul<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">%=</span> link_to_unless_current <span class="token string-literal"><span class="token string">"Home"</span></span><span class="token punctuation">,</span> root_path <span class="token keyword">do</span> <span class="token string-literal"><span class="token string">%>
+          &lt;%= link_to "Home", root_path, :class =></span></span> <span class="token string-literal"><span class="token string">"current"</span></span> <span class="token string-literal"><span class="token string">%>
+        &lt;% end %></span></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span></code></pre>
+<p>In my research, I saw different ways of going about this, but this apparently is the recommended method as it's in the documentation (see the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to_unless_current">URLHelper</a>).</p>
+<p>I have to say this seems a bit counter-intuitive and not as &quot;easy&quot; as it should be. I kept expecting to be able to do something like:</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%=</span> link_to <span class="token string-literal"><span class="token string">"Home"</span></span> <span class="token punctuation">{</span>home_path<span class="token punctuation">}</span><span class="token punctuation">,</span> current_page<span class="token operator">?</span> <span class="token operator">?</span> <span class="token punctuation">(</span><span class="token symbol">:class</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">'current'</span></span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">nil</span> <span class="token operator">%</span><span class="token operator">></span></code></pre>
+<p>Anyway, if you want to add a highlight class, this works.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2010-04-17-zotero-ruby-fun/">Zotero + Ruby == Fun!</a></li><li>Next: <a href="/posts/2010-10-03-automatic-rvm-gemsets/">Automatic rvm gemsets</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2010-09-28-add-highlight-link-to-current-page-in-rails/ -->
+</html>

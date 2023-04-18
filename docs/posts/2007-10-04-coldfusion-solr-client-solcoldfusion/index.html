@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coldfusion Solr Client - SolColdfusion</title>
+    <meta name="description" content="I write about my experiences...randomly">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Wayne Graham&#39;s Musings">
+	<link rel="alternate" href="/feed.json" type="application/json" title="Wayne Graham&#39;s Musings">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <a href="#skip" class="visually-hidden">Skip to main content</a>
+
+    <header>
+    <a href="/" class="home-link">Wayne Graham&#39;s Musings</a>
+    <nav>
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/blog/">Archive</a></li>
+        </ul>
+    </nav>
+</header>
+    <main id="skip">
+        
+<h1>Coldfusion Solr Client - SolColdfusion</h1>
+
+<ul class="post-metadata">
+    <li><time datetime="2007-10-04">04 October 2007</time></li>
+</ul>
+
+<p>As I hinted at yesterday, I was close to having some code in the pipeline to abstract using Solr. I've finished the initial code with the following built in. Here's a brief setup guide to start playing with the code.</p>
+<p>First, you're going to need to grab the latest <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">release version of Solr (currently 1.2)</a>. The only real requirement to run this software is that you have a JRE of 1.5 or higher. Untar/zip the file somewhere convenient and open a command prompt. Get to the example directory in the apache-solr.1.2.x folder (cd /example). To start up the sample server running Jetty, just issue the following command:</p>
+<pre><code>java -jar start.jar
+</code></pre>
+<p>This will start a new instance of the Solr server on your computer on port 8983. You can make sure this is running by navigating to <a href="http://localhost:8983/solr">http://localhost:8983/solr</a> (NOTE: this is a link to your computer. If you get an error, it's because your computer isn't running an instance of Solr on port 8983).</p>
+<p>At this point, it's probably good to send you over to the Solr website to take a look at <a href="http://lucene.apache.org/solr/tutorial.html">their tutorial</a>. Go ahead. I'll wait...</p>
+<p>...</p>
+<p>Great, you're back.</p>
+<p>You've seen some basic inserting, deleting, and querying of Solr index data. You may have also noticed that there are clients for PHP, Ruby, Python, and Java...no ColdFusion. I want to do a little more testing on this before I submit the patch, but I've added the initial code as an encosure here to do updating, deleting, and searching in Coldfusion.</p>
+<p>The CFC SolColdfusion should be in the path org/apache/client (at least that's where I'm putting in for the purposes of this initial demonstration). The initialization takes one required parameter (the Solr host) and then has two optional parameters (port and path).</p>
+<p>To set this up, create an instance with</p>
+<pre class="language-html" tabindex="0"><code class="language-html">&lt;cfset solr = createObject(“component”, “org.apache.solr.client.SolColdfusion”).init(“http://localhost”, “8983”, “/solr”) /></code></pre>
+<p>Now, there are a lot of different parameters you can send to Solr to perform different queries. And, since some of these key names can repeat, I chose to implement sending these parameters as an array. So, let's set this up.</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> arrayNew(1)</span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[1][1]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “indent”</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[1][2]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “on”</span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[2][1]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “wt”</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[2][2]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “standard”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[3][1]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “fl”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[3][2]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “*,score”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[4][1]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “qt”</span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[4][2]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “standard”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[5][1]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “wt”</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">params[5][2]</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> “standard”</span> <span class="token punctuation">/></span></span></code></pre>
+<p>These parameters are basically what are the defaults that Solr will return back to you. If you want highlighting, you would need to add two additional row vectors with 'hl = on' and 'hl.fl = '.</p>
+<p>Searching is straight forward, taking a query, the start row, number of rows to return, and the array of parameters:</p>
+<pre class="language-html" tabindex="0"><code class="language-html">&lt;cfset results = solr.search("*:*", 0, 10, params) /></code></pre>
+<p>This searches all fields and all content and returns back an XML document with the search results in it.</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfdump</span> <span class="token attr-name">var</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“#results#”</span> <span class="token punctuation">/></span></span></code></pre>
+<p>In the result node, you'll see that Solr returns an xmlAttribute of <em>numFound of 0</em> (assuming you don't have anything in the index). Let's add an example document from the documents that come with Solr.</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfxml</span> <span class="token attr-name">variable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“sample”</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>doc</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>F8V7067-APL-KIT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Belkin Mobile Power Cord for iPod w/ Dock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>manu<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Belkin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>electronics<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>connector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>features<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>car power adapter, white<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>weight<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>price<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>19.95<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>popularity<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>inStock<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>field</span><span class="token punctuation">></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>doc</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cfxml</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">solr.add(sample)</span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">solr.commit()</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">solr.optimize()</span> <span class="token punctuation">/></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">results</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> solr.search(“id:F8V7067-APL-KIT”,</span> <span class="token attr-name">0,</span> <span class="token attr-name">10,</span> <span class="token attr-name">params)</span> <span class="token punctuation">/></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfdump</span> <span class="token attr-name">var</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>“#xmlParse(results)#”</span> <span class="token punctuation">/></span></span></code></pre>
+<p>You'll notice I used a commit and optmize statement. Neither of these statements are necessary every time you add a document, but be aware that Solr caches documents and won't flush the new documents to disk unless you either commit the documents or the mergefactor setting you used in your solrconfig.xml file has been reached.</p>
+<p>Now, let's delete this document...</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">solr.deleteById("F8V7067-APL-KIT")</span> <span class="token punctuation">/></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cfset</span> <span class="token attr-name">solr.commit()</span> <span class="token punctuation">/></span></span></code></pre>
+<p>Don't forget to commit deletions to the index!</p>
+<p>There'll be more soon (add multiple documents, delete by queries). In the mean time, try it out. If you have any comments, questions, concerns, whatever, let me know.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2007-10-03-coldfusion-and-solr/">ColdFusion and Solr</a></li><li>Next: <a href="/posts/2007-10-05-solr-and-coldfusion-setting-up/">Solr and Coldfusion -- Setting Up</a></li>
+</ul>
+    </main>
+</body>
+<footer></footer>
+<!-- Current page: /posts/2007-10-04-coldfusion-solr-client-solcoldfusion/ -->
+</html>
