@@ -1,0 +1,152 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="Resume" sideBarActiveItemID="cv">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Profile</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    As a <strong>Chief Information Officer</strong> and Director of Informatics,
+    Cultural Networks, and Knowledge Systems, I'm passionate about harnessing the
+    power of technology to bridge cultural divides and facilitate meaningful connections
+    between people. With a unique blend of technical expertise and cultural curiosity,
+    I help organizations turn data into actionable intelligence that informs decision
+    making and drives positive change. My strength lies in my ability to navigate
+    multiple roles across projects, from IT strategy and enterprise architecture
+    development to technical solution development and system implementation. Whether
+    working with diverse stakeholders or designing innovative solutions, I'm committed
+    to using effective leadership, creative problem-solving, and cutting-edge technologies
+    to drive results and foster a more connected world.
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="College of William and Mary"
+      subtitle="1999 to 2001 at Harrison Ruffin Tyler Department of History, Williamsburg, VA"
+    />
+    <TimeLineElement
+      title="Virginia Military Institute"
+      subtitle="1995 to 1999 Lexington, VA"
+    />
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="Chief Information Officer and Director of Informatics, Cultural Networks, and Knowledge Systems"
+      subtitle="From 2015 to Present at Council on Library and Information Resources"
+    >
+      Responsible for developing, integrating, and overseeing all technical
+      aspects of the organization including vision, strategy, delivery,
+      operations, and sustainability; work with executive management and CLIR
+      stakeholders to help grow the organization through the use of technology
+      resources; plan, direct, and monitor operations to improve program
+      execution and outreach; promote increased efficiencies through automation;
+      assure appropriate utilization of resources; serve as a technical advisor
+      for grant proposals and funded grants; ensure technologies are used
+      efficiently and securely; evaluate and implement new infrastructures;
+      conduct research and case studies on leading-edge technologies.
+    </TimeLineElement>
+    <TimeLineElement
+      title="Head, Research and Development"
+      subtitle="From 2009 to 2018 at University of Virginia Libraries, Charlottesville, VA"
+    >
+      Provided vision and direction for the investigation, development, and
+      expansion for the department’s research and development initiatives;
+      identified resources and services to support and enhance the field of
+      digital humanities at the University of Virginia; coordinated closely with
+      library computing staff, University information technology, and university
+      faculty to ensure Digital Humanities projects are deployed in a sensible,
+      and sustainable manner; developed proof-of-concept software to demonstrate
+      the feasibility of the technology and approaches; lead and executed
+      software design, development, prototyping, and testing activities; lead
+      problem resolution related to system design and implementation; mentored,
+      trained, and advised department, graduate students, and faculty members.
+    </TimeLineElement>
+    <TimeLineElement
+      title="Coordinator of Emerging Technology and Digital Libraries"
+      subtitle="From 2001 to 2009 at College of William and Mary, Williamsburg, VA"
+    >
+      Developed essential strategic, sustainability, and project plans including
+      collection strategy, information architecture, service, and functional
+      requirements, rights management, and standards frameworks; managed the
+      library's server infrastructure including website, search, database,
+      proxy, print, file, storage, and backup servers.
+    </TimeLineElement>
+    <TimeLineElement
+      title="Research Assistant"
+      subtitle="From 1999 to 2001 at Colonial Williamsburg Foundation, Williamsburg, VA"
+    >
+      TEI SGML and XML encoding, database development, web development for
+      pastportal.com, DSSSL transformations. Developed and maintained database
+      back end for Pastportal.com project that worked to digitize the
+      manuscript, research reports, and rare book collections of the Colonial
+      Williamsburg Foundation. Managed the production of the foundation's
+      nascent digital imaging department and its associated metadata for digital
+      preservation of primary documents. Worked with vendors to transcribe
+      original content into machine-readable text.
+    </TimeLineElement>
+  </div>
+
+  <!-- <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Certifications</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    <li>
+      <a href="#" target="_blank"> Certification Name (with link)</a>
+    </li>
+    <li>
+      <a href="#" target="_blank"> Certification Name (with link)</a>
+    </li>
+  </ul> -->
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Skills</div>
+  </div>
+
+  <ul class="list-disc md:columns-5 columns-2 mx-6">
+    <li>Ruby (and Rails)</li>
+    <li>Python</li>
+    <li>JavaScript</li>
+    <li>PHP</li>
+    <li>C/C++</li>
+    <li>Java</li>
+    <li>PostgreSQL</li>
+    <li>MySQL</li>
+    <li>MSSQL</li>
+    <li>Oracle</li>
+    <li>Redis</li>
+    <li>CouchDB</li>
+    <li>Snowflake</li>
+    <li>Linux (Ubuntu/RedHat)</li>
+    <li>MacOS</li>
+    <li>Windows</li>
+    <li>Tableau</li>
+    <li>D3.js</li>
+    <li>TensorFlow</li>
+    <li>PyTorch</li>
+    <li>scikit-learn</li>
+    <li>NLTK</li>
+    <li>R</li>
+    <li>Excel</li>
+    <li>Data storytelling and presentation</li>
+    <li>Cross-cultural communcation and collaboration</li>
+    <li>Community engagement and outreach</li>
+    <li>Program Management and fundraising</li>
+    <li>Strategic planning and execution</li>
+    <li>Project Management</li>
+    <li>Team Leadership and management</li>
+    <li>Problem-solving and conflict resolution</li>
+  </ul>
+</BaseLayout>

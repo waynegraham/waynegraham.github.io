@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
+---
+
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
+    <div>
+        <div class="text-3xl w-full font-bold mb-5">Profession Projects</div>
+    </div>
+
+    <HorizontalCard
+        title="Re:Mind"
+        img="/post_img.webp"
+        desc="Connecting Life to Knowledge During Climate Destruction"
+        url="https://remind.clir.org/"
+        badge="NEW"
+    />
+
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="CLIR Climate Resiliency Action Series"
+        img="/climate_resiliency.webp"
+        desc="A free series of workshops dedicated to learning, sharing, and developing active solutions to facing climate issues in GLAMR institutions."
+        url="https://climate-resiliency.clir.org/"
+        badge="NEW"
+    />
+
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="Digital Library of the Middle East"
+        img="/Hafezieh_tomb_inside_ceiling.webp"
+        desc="The Digital Library of the Middle East (DLME) offers free and open access to the rich cultural legacy of the Middle East and North Africa by bringing together collections from a wide range of cultural heritage institutions."
+        url="https://dlmenetwork.org/library"
+    />
+
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="Iraqi Jewish Archive"
+        img="/siegfreid-wolff-letter-lg.webp"
+        desc="The Iraqi Mukharabat Archive of Jewish Materials"
+        url="https://ijarchive.org/"
+    />
+
+    <div>
+        <div class="text-3xl w-full font-bold mb-5 mt-10">
+            Personal Projects
+        </div>
+    </div>
+
+    <HorizontalCard
+        title="Brazilian Jiu Jitsu Study Guide"
+        img="/gracie.webp"
+        desc="Videos for the demonstrations for the Pedro Sauer Brazilian Jiu Jitsu curriculum"
+        url="https://waynegraham.github.io/bjj-study-guide/"
+        badge="BJJ"
+    />
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="Recipes"
+        img="/post_img.webp"
+        desc="A collection of my favorite recipes"
+        url="https://waynegraham.github.io/recipes"
+    />
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="Spatial Storytelling"
+        img="/post_img.webp"
+        desc="Experiments in GIS platforms for spatial storytelling (based on work of NYTimes)"
+        url="https://waynegraham.github.io/nytimes_clone/"
+    />
+</BaseLayout>
