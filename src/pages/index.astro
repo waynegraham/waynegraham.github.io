@@ -66,15 +66,22 @@ const last_posts = posts.slice(0, 3);
     <HorizontalCard
         title="Brazilian Jiu Jitsu Study Guide"
         img="/gracie.webp"
-        desc="Videos for the demonstrations for the Pedro Sauer Brazilian Jiu Jitsu curriculum"
+        desc="My personal study guide for PSBJJ demonstration"
         url="https://waynegraham.github.io/bjj-study-guide/"
+    />
+    <div class="divider my-0"></div>
+    <HorizontalCard
+        title="Brazilian Jiu Jitsu White to Blue Study Guide"
+        img="/psbjjemblem.webp"
+        desc="Study guide for the Pedro Sauer Brazilian Jiu Jitsu curriculum"
+        url="https://waynegraham.github.io/white-to-blue/"
     />
 
     <!-- <div>
         <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
     </div> -->
 
-    {
+    <!-- {
         last_posts.map((post) => (
             <>
                 <HorizontalCard
@@ -88,5 +95,5 @@ const last_posts = posts.slice(0, 3);
                 <div class="divider my-0" />
             </>
         ))
-    }
+    } -->
 </BaseLayout>
