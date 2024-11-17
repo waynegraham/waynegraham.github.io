@@ -1,9 +1,25 @@
-.DS_Store
-log/
-_cache/
-_site
-_inclues/ga-account-number.txt
-.sass-cache
+# build output
+dist/
+.cache
+# dependencies
 node_modules/
-.bundle/
-.jekyll-cache/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# Astro
+.astro/
+
+_site/
+dist/
