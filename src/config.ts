@@ -4,6 +4,7 @@
 export const SITE_TITLE = 'Wayne Graham';
 export const SITE_DESCRIPTION =
     "Explore my professional profile as a seasoned IT leader with expertise in informatics, cultural networks, and knowledge systems. Learn about my work, projects, and experiences";
-export const GENERATE_SLUG_FROM_TITLE = true
+export const GENERATE_SLUG_FROM_TITLE = true;
 
-export const TRANSITION_API = true
+export const TRANSITION_API = true;
+
